@@ -62,8 +62,8 @@ Los estudiantes enfrentan largos tiempos de espera en la cafetería, lo que afec
 
 ## 👥 Autores
 
-- Alonso Gómez Angel Manuel
-- Aguirre Aleman Beatriz
-- Orive Cardiel Ariana Paola
+- Manuel-Alonso-AG
+- TecnaCoder177
+- ArianaOrive
 
 ---
