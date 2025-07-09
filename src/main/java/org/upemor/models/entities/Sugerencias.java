@@ -2,32 +2,26 @@ package org.upemor.models.entities;
 
 import java.time.LocalDateTime;
 
-public class Sugerencias {
-    private int idSugerencia;
-    private String asunto;
-    private String sugerencia;
-    private LocalDateTime fechaSugerencia;
+import org.upemor.models.Entity;
+
+public class Sugerencias extends Entity {
     private Usuarios usuario;
+    private String tipoDieta;
+    private String alergias;
+    private String comentarios;
+    private LocalDateTime fechaSugerencia;
 
-    public int getIdSugerencia() {
-        return idSugerencia;
+    public Usuarios getUsuario() {return usuario;}
+
+    public String getTipoDieta() {return tipoDieta;}
+
+    public String getAlergias() {return alergias;}
+
+    public String getComentarios() {return comentarios;}
+
+    public LocalDateTime getFechaSugerencia() {return fechaSugerencia;}
+
+    public Sugerencias() {
+        super(0);
     }
-
-    public String getAsunto() {
-        return asunto;
-    }
-
-    public String getSugerencia() {
-        return sugerencia;
-    }
-
-    public LocalDateTime getFechaSugerencia() {
-        return fechaSugerencia;
-    }
-
-    public Usuarios getUsuario() {
-        return usuario;
-    }
-
-    public Sugerencias() {}
 }

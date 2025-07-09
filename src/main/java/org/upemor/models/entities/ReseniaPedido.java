@@ -4,24 +4,24 @@ import java.time.LocalDateTime;
 
 import org.upemor.models.Entity;
 
-public class ReseniaProducto extends Entity {
+public class ReseniaPedido extends Entity {
     private Usuarios usuario;
     private Pedidos pedido;
-    private String calificaion;
+    private int calificaion;
     private String comentario;
     private LocalDateTime fechaResenia;
-
+    
     public Usuarios getUsuario() {return usuario;}
 
     public Pedidos getPedido() {return pedido;}
 
-    public String getCalificaion() {return calificaion;}
+    public int getCalificaion() {return calificaion;}
 
     public String getComentario() {return comentario;}
 
     public LocalDateTime getFechaResenia() {return fechaResenia;}
 
-    public ReseniaProducto() {
+    public ReseniaPedido() {
         super(0);
     }
 }

@@ -2,42 +2,29 @@ package org.upemor.models.entities;
 
 import java.time.LocalTime;
 
-public class Productos {
-    private int idProducto;
-    private String nombre;
+import org.upemor.models.Entity;
+
+public class Productos extends Entity {
+    private String nombreProducto;
+    private String imagenUrl;
     private String descripcion;
     private double precio;
     private LocalTime tiempoPreparacion;
     private boolean disponible;
-    private String imagenUrl;
 
-    public int getIdProducto() {
-        return idProducto;
+    public String getNombreProducto() {return nombreProducto;}
+
+    public String getImagenUrl() {return imagenUrl;}
+
+    public String getDescripcion() {return descripcion;}
+
+    public double getPrecio() {return precio;}
+
+    public LocalTime getTiempoPreparacion() {return tiempoPreparacion;}
+
+    public boolean isDisponible() {return disponible;}
+
+    public Productos() {
+        super(0);
     }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public LocalTime getTiempoPreparacion() {
-        return tiempoPreparacion;
-    }
-
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public String getImagenUrl() {
-        return imagenUrl;
-    }
-
-    public Productos() {}
 }

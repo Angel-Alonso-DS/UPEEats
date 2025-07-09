@@ -1,32 +1,17 @@
 package org.upemor.models.entities;
 
-public class Categorias {
-    private int idCategoria;
+import org.upemor.models.Entity;
+
+public class Categorias extends Entity {
     private String nombre;
     private String descripcion;
-    private boolean activa;
-    private Productos producto;
 
-    public int getIdCategoria() {
-        return idCategoria;
+    public String getNombre() {return nombre;}
+
+    public String getDescripcion() {return descripcion;}
+
+    public Categorias() {
+        super(0);
     }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public boolean isActiva() {
-        return activa;
-    }
-
-    public Productos getProducto() {
-        return producto;
-    }
-
-    public Categorias() {}
 
 }

@@ -3,47 +3,32 @@ package org.upemor.models.entities;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class Pedidos {
-    private int idPedido;
-    private Usuarios codigoUsuario;
-    private LocalDateTime fechaPedido;
-    private double total;
-    private String estado;
+import org.upemor.models.Entity;
+
+public class Pedidos extends Entity {
+    private Usuarios usuario;
     private LocalTime tiempoEstimado;
     private LocalTime tiempoEntrga;
-    private String detalles;
-    
-    public int getIdPedido() {
-        return idPedido;
-    }
+    private String estado;
+    private String comentario;
+    private double total;
+    private LocalDateTime fecha;
 
-    public Usuarios getCodigoUsuario() {
-        return codigoUsuario;
-    }
+    public Usuarios getUsuario() {return usuario;}
 
-    public LocalDateTime getFechaPedido() {
-        return fechaPedido;
-    }
+    public LocalTime getTiempoEstimado() {return tiempoEstimado;}
 
-    public double getTotal() {
-        return total;
-    }
+    public LocalTime getTiempoEntrga() {return tiempoEntrga;}
 
-    public String getEstado() {
-        return estado;
-    }
+    public String getEstado() {return estado;}
 
-    public LocalTime getTiempoEstimado() {
-        return tiempoEstimado;
-    }
+    public String getComentario() {return comentario;}
 
-    public LocalTime getTiempoEntrga() {
-        return tiempoEntrga;
-    }
+    public double getTotal() {return total;}
 
-    public String getDetalles() {
-        return detalles;
-    }
+    public LocalDateTime getFecha() {return fecha;}
 
-    public Pedidos() {}
+    public Pedidos() {
+        super(0);
+    }
 }
