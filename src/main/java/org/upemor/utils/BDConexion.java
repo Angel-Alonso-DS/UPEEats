@@ -10,7 +10,7 @@ public class BDConexion {
 
     private BDConexion(int DATABASE_TYPE) {
         try {
-            if (DATABASE_TYPE > 1) {
+            if (DATABASE_TYPE > 1 || DATABASE_TYPE < 0) {
                 throw new IllegalArgumentException("Tipo de base de datos no válido: " + DATABASE_TYPE);
             }
             if (DATABASE_TYPE == 1) {

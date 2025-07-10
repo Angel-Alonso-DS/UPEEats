@@ -1,5 +1,6 @@
 package org.upemor.models;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,46 +11,34 @@ import java.util.List;
 import org.upemor.utils.BDConexion;
 
 public abstract class Repository <T extends Entity>{
-    private BDConexion conexion;
-    private String seleccionarTodoSQL;
-    private String seleccionSQL;
-    private String insertarSQL;
-    private String eliminarSQL;
-    private String actualizarSQL;
-
-    public Repository() {
-        conexion = BDConexion.getInstance();
-        setSQL();
-    }
-
-    protected abstract void setSQL();
+    protected Connection conexion;
+    protected String seleccionarTodoQuery;
+    protected String seleccionarPorIdQuery;
+    protected String insertarQuery;
+    protected String eliminarQuery;
+    protected String actualizarQuery;
+    
+    protected abstract void inicializarQueries();
     protected abstract T mapear(ResultSet rs) throws SQLException;
     protected abstract void prepararInsert(PreparedStatement stmt, T entidad) throws SQLException;
-
-    public List<T> obtenerTodos() {
-        List<T> lista = new ArrayList<>();
-        try (Statement stmt = conexion.getConexion().createStatement();
-             ResultSet rs = stmt.executeQuery(seleccionarTodoSQL)) {
-
-            while (rs.next()) lista.add(mapear(rs));
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return lista;
+    protected abstract void prepararActualizar(PreparedStatement stmt, T entidad) throws SQLException;
+    
+    
+    protected void cargarRelaciones(T entidad) throws SQLException {
+        
     }
-
-    public void guardar(T entidad) {
-        try (PreparedStatement stmt = conexion.getConexion().prepareStatement(insertarSQL)) {
+    
+    public void insertar(T entidad) {
+        try (PreparedStatement stmt = conexion.prepareStatement(insertarQuery)) {
             prepararInsert(stmt, entidad);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
+    
     public void eliminar(int id) {
-        try (PreparedStatement stmt = conexion.getConexion().prepareStatement(eliminarSQL)) {
+        try (PreparedStatement stmt = conexion.prepareStatement(eliminarQuery)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -57,6 +46,50 @@ public abstract class Repository <T extends Entity>{
         }
     }
 
+    public void actualizar(T entidad) throws SQLException {
+        try (PreparedStatement stmt = conexion.prepareStatement(actualizarQuery)) {
+            prepararActualizar(stmt, entidad);
+            stmt.executeUpdate();
+            
+        }
+    }
+    
+    public List<T> obtenerTodos() {
+        List<T> lista = new ArrayList<>();
+        try (Statement stmt = conexion.createStatement();
+        ResultSet rs = stmt.executeQuery(seleccionarTodoQuery)) {
+            
+            while (rs.next()) {
+                T entidad = mapear(rs);
+                cargarRelaciones(entidad);
+                lista.add(entidad);
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+    
+    public T obtenerPorId(long id) throws SQLException {
+        try (PreparedStatement stmt = conexion.prepareStatement(seleccionarPorIdQuery)) {
+            stmt.setLong(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    T entidad = mapear(rs);
+                    cargarRelaciones(entidad);
+                    return entidad;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-
+    
+    public Repository() {
+        conexion = BDConexion.getInstance().getConexion();
+        inicializarQueries();
+    }
 }

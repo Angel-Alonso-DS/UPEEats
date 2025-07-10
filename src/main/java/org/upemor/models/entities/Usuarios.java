@@ -1,11 +1,11 @@
 package org.upemor.models.entities;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 import org.upemor.models.Entity;
 
 public class Usuarios extends Entity {
-    private String nombres;
+    private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String correo;
@@ -14,29 +14,39 @@ public class Usuarios extends Entity {
     private boolean activo;
     private String rol;
     private String matricula;
-    private LocalDateTime fechaRegistro;
+    private Timestamp fechaRegistro;
 
-    public String getNombres() {return nombres;}
-
+    public String getNombre() {return nombre;}
+    
     public String getApellidoPaterno() {return apellidoPaterno;}
-
+    
     public String getApellidoMaterno() {return apellidoMaterno;}
-
+    
     public String getCorreo() {return correo;}
-
+    
     public String getContrasenia() {return contrasenia;}
-
+    
     public String getTelefono() {return telefono;}
-
+    
     public boolean isActivo() {return activo;}
-
+    
     public String getRol() {return rol;}
-
+    
     public String getMatricula() {return matricula;}
+    
+    public Timestamp getFechaRegistro() {return fechaRegistro;}
 
-    public LocalDateTime getFechaRegistro() {return fechaRegistro;}
-
-    public Usuarios() {
-        super(0);
+    public Usuarios(long newId, String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, boolean activo, String rol, String matricula, Timestamp fechaRegistro) {
+        super(newId);
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.correo = correo;
+        this.contrasenia = contrasenia;
+        this.telefono = telefono;
+        this.activo = activo;
+        this.rol = rol;
+        this.matricula = matricula;
+        this.fechaRegistro = fechaRegistro;
     }
 }

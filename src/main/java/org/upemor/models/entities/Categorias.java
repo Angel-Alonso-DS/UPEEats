@@ -7,11 +7,12 @@ public class Categorias extends Entity {
     private String descripcion;
 
     public String getNombre() {return nombre;}
-
+    
     public String getDescripcion() {return descripcion;}
 
-    public Categorias() {
-        super(0);
+    public Categorias(long newId, String nombre, String descripcion) {
+        super(newId);
+        this.nombre = nombre;
+        this.descripcion = descripcion;
     }
-
 }

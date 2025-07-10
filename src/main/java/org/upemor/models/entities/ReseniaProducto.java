@@ -1,27 +1,33 @@
 package org.upemor.models.entities;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 import org.upemor.models.Entity;
 
 public class ReseniaProducto extends Entity {
     private Usuarios usuario;
-    private Pedidos pedido;
-    private String calificaion;
+    private Productos producto;
+    private String calificacion;
     private String comentario;
-    private LocalDateTime fechaResenia;
-
+    private Timestamp fechaResenia;
+    
     public Usuarios getUsuario() {return usuario;}
-
-    public Pedidos getPedido() {return pedido;}
-
-    public String getCalificaion() {return calificaion;}
-
+    
+    public Productos getProducto() {return producto;}
+    
+    public String getCalificacion() {return calificacion;}
+    
     public String getComentario() {return comentario;}
-
-    public LocalDateTime getFechaResenia() {return fechaResenia;}
-
-    public ReseniaProducto() {
-        super(0);
+    
+    public Timestamp getFechaResenia() {return fechaResenia;}
+    
+    public ReseniaProducto(long newId, Usuarios usuario, Productos producto, String calificacion, String comentario,
+            Timestamp fechaResenia) {
+        super(newId);
+        this.usuario = usuario;
+        this.producto = producto;
+        this.calificacion = calificacion;
+        this.comentario = comentario;
+        this.fechaResenia = fechaResenia;
     }
 }
