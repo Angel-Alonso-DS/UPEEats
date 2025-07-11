@@ -118,7 +118,7 @@ public class ProductoRepository extends Repository<Productos> {
     public List<Productos> buscarPorCategoria(long idCategoria) {
         List<Productos> lista = new ArrayList<>();
         String sql = "SELECT p.* FROM Productos p " +
-                     "JOIN ProductoCategoria pc ON p.id_producto = pc.id_producto " +
+                     "JOIN Productos_Categorias pc ON p.id_producto = pc.id_producto " +
                      "WHERE pc.id_categoria = ?";
         try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
             stmt.setLong(1, idCategoria);
@@ -133,5 +133,19 @@ public class ProductoRepository extends Repository<Productos> {
             e.printStackTrace();
         }
         return lista;
+    }
+
+    // Devuelve el último ID insertado en la tabla Productos (SQLite)
+    public long obtenerUltimoIdInsertado() {
+        long id = 0;
+        try (Statement stmt = conexion.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid() as id")) {
+            if (rs.next()) {
+                id = rs.getLong("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 }

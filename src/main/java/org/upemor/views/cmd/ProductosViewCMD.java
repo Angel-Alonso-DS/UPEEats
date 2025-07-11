@@ -1,7 +1,10 @@
 package org.upemor.views.cmd;
 
 import org.upemor.controllers.ProductosController;
+import org.upemor.models.entities.Categorias;
 import org.upemor.models.entities.Productos;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -70,13 +73,13 @@ public class ProductosViewCMD {
         scanner.nextLine();
         System.out.print("IDs de categorías (separados por coma, puedes dejar vacío para ninguna): ");
         String idsCatStr = scanner.nextLine();
-        java.util.List<org.upemor.models.entities.Categorias> categorias = new java.util.ArrayList<>();
+        List<Categorias> categorias = new ArrayList<>();
         if (!idsCatStr.isEmpty()) {
             for (String idStr : idsCatStr.split(",")) {
                 idStr = idStr.trim();
                 if (!idStr.isEmpty()) {
                     long idCat = Long.parseLong(idStr);
-                    org.upemor.models.entities.Categorias cat = categoriasController.buscarPorId(idCat);
+                    Categorias cat = categoriasController.buscarPorId(idCat);
                     if (cat != null) categorias.add(cat);
                 }
             }
@@ -115,13 +118,13 @@ public class ProductosViewCMD {
         boolean disponible = dispStr.isEmpty() ? p.isDisponible() : Boolean.parseBoolean(dispStr);
         System.out.print("IDs de categorías (separados por coma, puedes dejar vacío para ninguna): ");
         String idsCatStr = scanner.nextLine();
-        java.util.List<org.upemor.models.entities.Categorias> categorias = new java.util.ArrayList<>();
+        List<Categorias> categorias = new ArrayList<>();
         if (!idsCatStr.isEmpty()) {
             for (String idStr : idsCatStr.split(",")) {
                 idStr = idStr.trim();
                 if (!idStr.isEmpty()) {
                     long idCat = Long.parseLong(idStr);
-                    org.upemor.models.entities.Categorias cat = categoriasController.buscarPorId(idCat);
+                    Categorias cat = categoriasController.buscarPorId(idCat);
                     if (cat != null) categorias.add(cat);
                 }
             }

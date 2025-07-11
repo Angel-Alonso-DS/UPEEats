@@ -2,6 +2,7 @@ package org.upemor.controllers;
 
 import org.upemor.models.entities.Categorias;
 import org.upemor.models.entities.Productos;
+import org.upemor.models.repositories.ProductoCategoriaRepository;
 import org.upemor.models.repositories.ProductoRepository;
 
 import java.sql.SQLException;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 public class ProductosController {
     private final ProductoRepository productoRepository = new ProductoRepository();
+    private final ProductoCategoriaRepository productoCategoriaRepository = new ProductoCategoriaRepository();
 
     /**
      * Obtiene todos los productos registrados.
@@ -64,6 +66,17 @@ public class ProductosController {
     public void insertar(String nombreProducto, String imagenUrl, String descripcion, double precio, String tiempoPreparacion, boolean disponible, Timestamp fechaRegistro, List<Categorias> categorias) {
         Productos producto = new Productos(0, nombreProducto, imagenUrl, descripcion, precio, tiempoPreparacion, disponible, fechaRegistro, categorias);
         productoRepository.insertar(producto);
+        // Obtener el ID generado
+        long idProducto = producto.getId();
+        try {
+            // Si el repositorio no actualiza el ID, obtén el último ID insertado
+            if (idProducto == 0) {
+                idProducto = productoRepository.obtenerUltimoIdInsertado();
+            }
+            productoCategoriaRepository.asociarCategorias(idProducto, categorias);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -78,6 +91,7 @@ public class ProductosController {
         Productos producto = new Productos(id, nombreProducto, imagenUrl, descripcion, precio, tiempoPreparacion, disponible, fechaRegistro, categorias);
         try {
             productoRepository.actualizar(producto);
+            productoCategoriaRepository.asociarCategorias(id, categorias);
         } catch (SQLException e) {
             e.printStackTrace();
         }

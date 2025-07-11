@@ -36,4 +36,28 @@ public class ProductoCategoriaRepository {
         }
         return categorias;
     }
+
+    // Asocia un producto con varias categorías (elimina las previas y agrega las nuevas)
+    public void asociarCategorias(long idProducto, List<Categorias> categorias) {
+        try {
+            // Elimina relaciones previas
+            String delete = "DELETE FROM Productos_Categorias WHERE id_producto = ?";
+            try (PreparedStatement stmt = conexion.prepareStatement(delete)) {
+                stmt.setLong(1, idProducto);
+                stmt.executeUpdate();
+            }
+            // Inserta nuevas relaciones
+            String insert = "INSERT INTO Productos_Categorias (id_producto, id_categoria) VALUES (?, ?)";
+            try (PreparedStatement stmt = conexion.prepareStatement(insert)) {
+                for (Categorias cat : categorias) {
+                    stmt.setLong(1, idProducto);
+                    stmt.setLong(2, cat.getId());
+                    stmt.addBatch();
+                }
+                stmt.executeBatch();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

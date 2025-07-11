@@ -15,6 +15,7 @@ public class PedidosViewCMD {
             System.out.println("\n--- Gestión de Pedidos ---");
             System.out.println("1. Listar todos los pedidos");
             System.out.println("2. Buscar pedido por ID");
+            System.out.println("3. Crear nuevo pedido");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
@@ -26,6 +27,9 @@ public class PedidosViewCMD {
                 case 2:
                     buscarPorId();
                     break;
+                case 3:
+                    crearPedido();
+                    break;
                 case 0:
                     System.out.println("Saliendo...");
                     break;
@@ -33,6 +37,30 @@ public class PedidosViewCMD {
                     System.out.println("Opción inválida");
             }
         } while (opcion != 0);
+    }
+
+    private void crearPedido() {
+        System.out.print("ID del usuario: ");
+        long idUsuario = scanner.nextLong();
+        scanner.nextLine();
+        java.util.List<Long> productos = new java.util.ArrayList<>();
+        java.util.List<Integer> cantidades = new java.util.ArrayList<>();
+        String agregarOtro;
+        do {
+            System.out.print("ID del producto: ");
+            long idProducto = scanner.nextLong();
+            System.out.print("Cantidad: ");
+            int cantidad = scanner.nextInt();
+            scanner.nextLine();
+            productos.add(idProducto);
+            cantidades.add(cantidad);
+            System.out.print("¿Agregar otro producto? (s/n): ");
+            agregarOtro = scanner.nextLine();
+        } while (agregarOtro.equalsIgnoreCase("s"));
+        System.out.print("Comentario (opcional): ");
+        String comentario = scanner.nextLine();
+        boolean ok = pedidosController.crearPedido(idUsuario, productos, cantidades, comentario);
+        System.out.println(ok ? "Pedido registrado exitosamente." : "No se pudo registrar el pedido.");
     }
 
     private void listarTodos() {

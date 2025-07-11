@@ -16,6 +16,7 @@ public class MainCMD {
             System.out.println("5. Gestión de usuarios");
             System.out.println("6. Gestión de sugerencias");
             System.out.println("7. Panel de administrador");
+            System.out.println("8. Gestión de categorías");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
@@ -41,6 +42,9 @@ public class MainCMD {
                     break;
                 case 7:
                     new AdministradorViewCMD().mostrarMenu();
+                    break;
+                case 8:
+                    new CategoriasViewCMD().mostrarMenu();
                     break;
                 case 0:
                     System.out.println("Saliendo del sistema...");

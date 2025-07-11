@@ -39,12 +39,12 @@ public class PedidosRepository extends Repository<Pedidos> {
         return new Pedidos(
             rs.getLong("id_pedido"),
             ur.obtenerPorId(rs.getLong("id_usuario")),
-            rs.getTimestamp("tiempo_estimado"),
-            rs.getTimestamp("tiempo_entrega"),
+            new java.sql.Timestamp(rs.getLong("tiempo_estimado")),
+            new java.sql.Timestamp(rs.getLong("tiempo_entrega")),
             rs.getString("estado"),
             rs.getString("comentario"),
             rs.getDouble("total"),
-            rs.getTimestamp("fecha")
+            new java.sql.Timestamp(rs.getLong("fecha"))
         );
     }
 
@@ -57,12 +57,12 @@ public class PedidosRepository extends Repository<Pedidos> {
     @Override
     protected void prepararInsert(PreparedStatement stmt, Pedidos p) throws SQLException {
         stmt.setObject(1, p.getUsuario());
-        stmt.setTimestamp(2, p.getTiempoEstimado());
-        stmt.setTimestamp(3, p.getTiempoEntrega());
+        stmt.setLong(2, p.getTiempoEstimado().getTime());
+        stmt.setLong(3, p.getTiempoEntrega().getTime());
         stmt.setString(4, p.getEstado());
         stmt.setString(5, p.getComentario());
         stmt.setDouble(6, p.getTotal());
-        stmt.setTimestamp(7, p.getFecha());
+        stmt.setLong(7, p.getFecha().getTime());
     }
 
     /**
@@ -75,5 +75,21 @@ public class PedidosRepository extends Repository<Pedidos> {
     protected void prepararActualizar(PreparedStatement stmt, Pedidos p) throws SQLException {
         prepararInsert(stmt, p);
         stmt.setLong(8, p.getId());
+    }
+    /**
+     * Obtiene el último id insertado en la tabla Pedidos.
+     * @return id del último pedido insertado
+     */
+    public long obtenerUltimoIdInsertado() {
+        long id = -1;
+        try (Statement stmt = this.conexion.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid();")) {
+            if (rs.next()) {
+                id = rs.getLong(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 }
