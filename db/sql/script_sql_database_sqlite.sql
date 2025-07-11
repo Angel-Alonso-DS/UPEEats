@@ -1,44 +1,42 @@
-CREATE DATABASE CafeteriaUniversitaria;
-USE CafeteriaUniversitaria;
 
 -- Usuarios
 CREATE TABLE Usuarios (
-    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(50) NOT NULL,
-    apellido_paterno VARCHAR(50) NOT NULL,
-    apellido_materno VARCHAR(50) NOT NULL,
-    correo VARCHAR(100) UNIQUE NOT NULL,
-    contrasenia VARCHAR(100) NOT NULL,
-    telefono VARCHAR(10) NOT NULL,
-    activo BOOLEAN NOT NULL DEFAULT TRUE,
-    rol ENUM('estudiante', 'empleado', 'administrador') NOT NULL,
-    matricula VARCHAR(20),
+    id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL,
+    apellido_paterno TEXT NOT NULL,
+    apellido_materno TEXT NOT NULL,
+    correo TEXT UNIQUE NOT NULL,
+    contrasenia TEXT NOT NULL,
+    telefono TEXT NOT NULL,
+    activo INTEGER NOT NULL DEFAULT 1,
+    rol TEXT NOT NULL,
+    matricula TEXT,
     fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Productos
 CREATE TABLE Productos (
-    id_producto INT PRIMARY KEY AUTO_INCREMENT,
-    nombre_producto VARCHAR(100) NOT NULL,
+    id_producto INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre_producto TEXT NOT NULL,
     imagenURL TEXT NOT NULL,
-    descripcion TEXT  NOT NULL,
-    precio DECIMAL(6,2) NOT NULL,
-    tiempo_preparacion TIME NOT NULL,
-    disponible BOOLEAN NOT NULL DEFAULT TRUE,
+    descripcion TEXT NOT NULL,
+    precio REAL NOT NULL,
+    tiempo_preparacion TEXT NOT NULL,
+    disponible INTEGER NOT NULL DEFAULT 1,
     fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Categorias
 CREATE TABLE Categorias (
-    id_categoria INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(50) NOT NULL,
+    id_categoria INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL,
     descripcion TEXT NOT NULL
 );
 
 -- Relacion muchos a muchos entre productos y categorias
 CREATE TABLE Productos_Categorias (
-    id_producto INT NOT NULL,
-    id_categoria INT NOT NULL,
+    id_producto INTEGER NOT NULL,
+    id_categoria INTEGER NOT NULL,
     PRIMARY KEY (id_producto, id_categoria),
     FOREIGN KEY (id_producto) REFERENCES Productos(id_producto),
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria)
@@ -46,26 +44,24 @@ CREATE TABLE Productos_Categorias (
 
 -- Pedidos
 CREATE TABLE Pedidos (
-    id_pedido INT PRIMARY KEY AUTO_INCREMENT,
-    id_usuario INT NOT NULL,
-    tiempo_estimado TIME NOT NULL,
-    tiempo_entrega TIME NOT NULL,
-    estado ENUM('pendiente', 'preparando', 'listo', 'entregado', 'cancelado') NOT NULL DEFAULT 'pendiente',
+    id_pedido INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_usuario INTEGER NOT NULL,
+    tiempo_estimado TEXT NOT NULL,
+    tiempo_entrega TEXT NOT NULL,
+    estado TEXT NOT NULL DEFAULT 'pendiente',
     comentario TEXT,
-    total DECIMAL(10,2) NOT NULL,
+    total REAL NOT NULL,
     fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
 );
 
-
 -- Detalle de pedidos
-
 CREATE TABLE DetallePedido (
-    id_detalle INT PRIMARY KEY AUTO_INCREMENT,
-    id_pedido INT NOT NULL,
-    id_producto INT NOT NULL,
-    cantidad INT NOT NULL,
-    subtotal DECIMAL(8,2) NOT NULL,
+    id_detalle INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_pedido INTEGER NOT NULL,
+    id_producto INTEGER NOT NULL,
+    cantidad INTEGER NOT NULL,
+    subtotal REAL NOT NULL,
     observaciones TEXT,
     FOREIGN KEY (id_pedido) REFERENCES Pedidos(id_pedido),
     FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
@@ -73,10 +69,10 @@ CREATE TABLE DetallePedido (
 
 -- Resenia para pedidos
 CREATE TABLE ReseniaPedido (
-    id_resenia INT PRIMARY KEY AUTO_INCREMENT,
-    id_usuario INT NOT NULL,
-    id_pedido INT NOT NULL,
-    calificacion ENUM('1', '2', '3', '4', '5') NOT NULL,
+    id_resenia INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_usuario INTEGER NOT NULL,
+    id_pedido INTEGER NOT NULL,
+    calificacion INTEGER NOT NULL,
     comentario TEXT,
     fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),
@@ -85,21 +81,21 @@ CREATE TABLE ReseniaPedido (
 
 -- Resenia para productos
 CREATE TABLE ReseniaProductos (
-    id_resenia INT PRIMARY KEY AUTO_INCREMENT,
-    id_usuario INT NOT NULL,
-    id_producto INT NOT NULL,
-    calificacion ENUM('1', '2', '3', '4', '5') NOT NULL,
+    id_resenia INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_usuario INTEGER NOT NULL,
+    id_producto INTEGER NOT NULL,
+    calificacion INTEGER NOT NULL,
     comentario TEXT,
     fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),
     FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
 );
 
--- Sugerencia alimenticias
+-- Sugerencias alimenticias
 CREATE TABLE Sugerencias (
-    id_sugerencia INT PRIMARY KEY AUTO_INCREMENT,
-    id_usuario INT NOT NULL,
-    tipo_dieta VARCHAR(100),
+    id_sugerencia INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_usuario INTEGER NOT NULL,
+    tipo_dieta TEXT,
     alergias TEXT,
     comentarios TEXT NOT NULL,
     fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -108,9 +104,9 @@ CREATE TABLE Sugerencias (
 
 -- Notificaciones
 CREATE TABLE Notificaciones (
-    id_notificacion INT PRIMARY KEY AUTO_INCREMENT,
-    id_usuario INT NOT NULL,
-    id_pedido INT NOT NULL,
+    id_notificacion INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_usuario INTEGER NOT NULL,
+    id_pedido INTEGER NOT NULL,
     mensaje TEXT NOT NULL,
     fecha DATETIME NOT NULL,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),

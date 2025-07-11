@@ -1,3 +1,7 @@
+/**
+ * Repositorio para operaciones CRUD sobre la entidad ReseniaProducto.
+ * Permite mapear, insertar y actualizar reseñas de productos.
+ */
 package org.upemor.models.repositories;
 
 import java.sql.*;
@@ -14,6 +18,9 @@ public class ReseniaProductoRepository extends Repository<ReseniaProducto> {
         productoR = new ProductoRepository();
     }
 
+    /**
+     * Inicializa las consultas SQL para operaciones CRUD.
+     */
     @Override
     protected void inicializarQueries() {
         insertarQuery = "INSERT INTO ReseniaProductos (id_usuario, id_producto, calificacion, comentario, fecha) VALUES (?, ?, ?, ?, ?)";
@@ -23,6 +30,12 @@ public class ReseniaProductoRepository extends Repository<ReseniaProducto> {
         seleccionarPorIdQuery = "SELECT * FROM ReseniaProductos WHERE id_resenia=?";
     }
 
+    /**
+     * Mapea un ResultSet a un objeto ReseniaProducto.
+     * @param rs ResultSet de la consulta
+     * @return Objeto ReseniaProducto
+     * @throws SQLException si ocurre un error de SQL
+     */
     @Override
     protected ReseniaProducto mapear(ResultSet rs) throws SQLException {
         return new ReseniaProducto(
@@ -35,6 +48,12 @@ public class ReseniaProductoRepository extends Repository<ReseniaProducto> {
         );
     }
 
+    /**
+     * Prepara la sentencia para insertar una reseña de producto.
+     * @param stmt PreparedStatement
+     * @param r ReseniaProducto a insertar
+     * @throws SQLException si ocurre un error de SQL
+     */
     @Override
     protected void prepararInsert(PreparedStatement stmt, ReseniaProducto r) throws SQLException {
         stmt.setObject(1, r.getUsuario());
@@ -44,6 +63,12 @@ public class ReseniaProductoRepository extends Repository<ReseniaProducto> {
         stmt.setTimestamp(5, r.getFechaResenia());
     }
 
+    /**
+     * Prepara la sentencia para actualizar una reseña de producto.
+     * @param stmt PreparedStatement
+     * @param r ReseniaProducto a actualizar
+     * @throws SQLException si ocurre un error de SQL
+     */
     @Override
     protected void prepararActualizar(PreparedStatement stmt, ReseniaProducto r) throws SQLException {
         prepararInsert(stmt, r);

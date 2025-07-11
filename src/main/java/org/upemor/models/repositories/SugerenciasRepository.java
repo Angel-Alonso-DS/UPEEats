@@ -5,10 +5,10 @@ import java.sql.*;
 import org.upemor.models.Repository;
 import org.upemor.models.entities.Sugerencias;
 
-public class SugerenciaRepository extends Repository<Sugerencias> {
+public class SugerenciasRepository extends Repository<Sugerencias> {
     private UsuarioRepository usuarioR;
 
-    public SugerenciaRepository() {
+    public SugerenciasRepository() {
         usuarioR = new UsuarioRepository();
     }
 

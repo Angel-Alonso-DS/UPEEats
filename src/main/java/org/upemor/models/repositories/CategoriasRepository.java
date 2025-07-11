@@ -1,3 +1,6 @@
+/**
+ * Repositorio para operaciones CRUD sobre la entidad Categorias.
+ */
 package org.upemor.models.repositories;
 
 import java.sql.*;
@@ -7,6 +10,9 @@ import org.upemor.models.entities.Categorias;
 
 public class CategoriasRepository extends Repository<Categorias> {
 
+    /**
+     * Inicializa las consultas SQL para operaciones CRUD.
+     */
     @Override
     protected void inicializarQueries() {
         insertarQuery = "INSERT INTO Categorias (nombre, descripcion) VALUES (?, ?)";
@@ -16,6 +22,12 @@ public class CategoriasRepository extends Repository<Categorias> {
         seleccionarPorIdQuery = "SELECT * FROM Categorias WHERE id_categoria = ?";
     }
 
+    /**
+     * Mapea un ResultSet a un objeto Categorias.
+     * @param rs ResultSet de la consulta
+     * @return Objeto Categorias
+     * @throws SQLException si ocurre un error de SQL
+     */
     @Override
     protected Categorias mapear(ResultSet rs) throws SQLException {
         return new Categorias(
@@ -25,12 +37,24 @@ public class CategoriasRepository extends Repository<Categorias> {
         );
     }
 
+    /**
+     * Prepara la sentencia para insertar una categoría.
+     * @param stmt PreparedStatement
+     * @param c Categoría a insertar
+     * @throws SQLException si ocurre un error de SQL
+     */
     @Override
     protected void prepararInsert(PreparedStatement stmt, Categorias c) throws SQLException {
         stmt.setString(1, c.getNombre());
         stmt.setString(2, c.getDescripcion());
     }
 
+    /**
+     * Prepara la sentencia para actualizar una categoría.
+     * @param stmt PreparedStatement
+     * @param c Categoría a actualizar
+     * @throws SQLException si ocurre un error de SQL
+     */
     @Override
     protected void prepararActualizar(PreparedStatement stmt, Categorias c) throws SQLException {
         prepararInsert(stmt, c);

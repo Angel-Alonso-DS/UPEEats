@@ -2,7 +2,9 @@ package org.upemor.models.entities;
 
 import java.sql.Timestamp;
 import org.upemor.models.Entity;
+import lombok.Getter;
 
+@Getter
 public class Sugerencias extends Entity {
     private Usuarios usuario;
     private String tipoDieta;

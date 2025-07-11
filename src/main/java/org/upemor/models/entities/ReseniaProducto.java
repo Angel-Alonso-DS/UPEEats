@@ -3,7 +3,9 @@ package org.upemor.models.entities;
 import java.sql.Timestamp;
 
 import org.upemor.models.Entity;
+import lombok.Getter;
 
+@Getter
 public class ReseniaProducto extends Entity {
     private Usuarios usuario;
     private Productos producto;

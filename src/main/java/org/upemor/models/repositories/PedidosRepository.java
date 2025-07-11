@@ -1,3 +1,7 @@
+/**
+ * Repositorio para operaciones CRUD sobre la entidad Pedidos.
+ * Permite mapear, insertar y actualizar pedidos.
+ */
 package org.upemor.models.repositories;
 
 import java.sql.*;
@@ -12,6 +16,9 @@ public class PedidosRepository extends Repository<Pedidos> {
         ur = new UsuarioRepository();
     }
 
+    /**
+     * Inicializa las consultas SQL para operaciones CRUD.
+     */
     @Override
     protected void inicializarQueries() {
         insertarQuery = "INSERT INTO Pedidos (id_usuario, tiempo_estimado, tiempo_entrega, estado, comentario, total, fecha) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -21,6 +28,12 @@ public class PedidosRepository extends Repository<Pedidos> {
         seleccionarPorIdQuery = "SELECT * FROM Pedidos WHERE id_pedido=?";
     }
 
+    /**
+     * Mapea un ResultSet a un objeto Pedidos.
+     * @param rs ResultSet de la consulta
+     * @return Objeto Pedidos
+     * @throws SQLException si ocurre un error de SQL
+     */
     @Override
     protected Pedidos mapear(ResultSet rs) throws SQLException {
         return new Pedidos(
@@ -35,6 +48,12 @@ public class PedidosRepository extends Repository<Pedidos> {
         );
     }
 
+    /**
+     * Prepara la sentencia para insertar un pedido.
+     * @param stmt PreparedStatement
+     * @param p Pedido a insertar
+     * @throws SQLException si ocurre un error de SQL
+     */
     @Override
     protected void prepararInsert(PreparedStatement stmt, Pedidos p) throws SQLException {
         stmt.setObject(1, p.getUsuario());
@@ -46,6 +65,12 @@ public class PedidosRepository extends Repository<Pedidos> {
         stmt.setTimestamp(7, p.getFecha());
     }
 
+    /**
+     * Prepara la sentencia para actualizar un pedido.
+     * @param stmt PreparedStatement
+     * @param p Pedido a actualizar
+     * @throws SQLException si ocurre un error de SQL
+     */
     @Override
     protected void prepararActualizar(PreparedStatement stmt, Pedidos p) throws SQLException {
         prepararInsert(stmt, p);

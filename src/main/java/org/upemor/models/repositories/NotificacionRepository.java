@@ -1,3 +1,7 @@
+/**
+ * Repositorio para operaciones CRUD sobre la entidad Notificaciones.
+ * Permite mapear, insertar y actualizar notificaciones.
+ */
 package org.upemor.models.repositories;
 
 import java.sql.*;
@@ -14,6 +18,9 @@ public class NotificacionRepository extends Repository<Notificaciones> {
         pedidosR = new PedidosRepository();
     }
 
+    /**
+     * Inicializa las consultas SQL para operaciones CRUD.
+     */
     @Override
     protected void inicializarQueries() {
         insertarQuery = "INSERT INTO Notificaciones (id_usuario, id_pedido, mensaje, fecha) VALUES (?, ?, ?, ?)";
@@ -23,6 +30,12 @@ public class NotificacionRepository extends Repository<Notificaciones> {
         seleccionarPorIdQuery = "SELECT * FROM Notificaciones WHERE id_notificacion=?";
     }
 
+    /**
+     * Mapea un ResultSet a un objeto Notificaciones.
+     * @param rs ResultSet de la consulta
+     * @return Objeto Notificaciones
+     * @throws SQLException si ocurre un error de SQL
+     */
     @Override
     protected Notificaciones mapear(ResultSet rs) throws SQLException {
         return new Notificaciones(
@@ -34,6 +47,12 @@ public class NotificacionRepository extends Repository<Notificaciones> {
         );
     }
 
+    /**
+     * Prepara la sentencia para insertar una notificación.
+     * @param stmt PreparedStatement
+     * @param n Notificaciones a insertar
+     * @throws SQLException si ocurre un error de SQL
+     */
     @Override
     protected void prepararInsert(PreparedStatement stmt, Notificaciones n) throws SQLException {
         stmt.setObject(1, n.getUsuario());
@@ -42,6 +61,12 @@ public class NotificacionRepository extends Repository<Notificaciones> {
         stmt.setTimestamp(4, n.getFecha());
     }
 
+    /**
+     * Prepara la sentencia para actualizar una notificación.
+     * @param stmt PreparedStatement
+     * @param n Notificaciones a actualizar
+     * @throws SQLException si ocurre un error de SQL
+     */
     @Override
     protected void prepararActualizar(PreparedStatement stmt, Notificaciones n) throws SQLException {
         prepararInsert(stmt, n);
