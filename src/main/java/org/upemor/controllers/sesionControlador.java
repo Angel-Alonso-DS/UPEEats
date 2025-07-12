@@ -23,41 +23,23 @@ public class SesionControlador {
      * @param contrasenia Contraseña
      * @param telefono Teléfono
      * @param matricula Matrícula única
-     * @return true si el registro fue exitoso, false en caso contrario
+     * @return true si el registro fue exitoso, en caso contrario lanza una excepción
      */
     public boolean registrarEstudiante(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String matricula) {
-        if (!Validadores.validarNombre(nombre) && 
-            !Validadores.validarApellido(apellidoPaterno) && 
-            !Validadores.validarApellido(apellidoMaterno) && 
-            !Validadores.validarCorreo(correo) && 
-            !Validadores.validarContrasenia(contrasenia) && 
-            !Validadores.validarTelefono(telefono) && 
-            !Validadores.validarMatricula(matricula)
-        ) {
-            System.err.println("Datos incorrectos");
-            return false;
-        }
+        if (usuarioRepository.existeCorreo(correo)) throw new IllegalArgumentException("Correo ya registrado");
 
-        if (usuarioRepository.existeCorreo(correo)) {
-            System.err.println("Correo ya registrado");
-            return false;
-        }
-        
-        if (usuarioRepository.existeMatricula(matricula)) {
-            System.err.println("Matricula ya registrada");
-            return false;
-        }
+        if (usuarioRepository.existeMatricula(matricula)) throw new IllegalArgumentException("Matricula ya registrada");
 
         Timestamp fechaRegistro = new Timestamp(System.currentTimeMillis());
 
         try {
             Usuarios nuevoUsuario = new Usuarios(0, nombre, apellidoPaterno, apellidoMaterno, correo, contrasenia, telefono, true, "Estudiante", matricula, fechaRegistro);
+
             usuarioRepository.insertar(nuevoUsuario);
             System.out.println("Registro exitoso");
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            throw new RuntimeException("Error al registrar estudiante ", e);
         }
 
     }
@@ -110,32 +92,16 @@ public class SesionControlador {
      * Permite el acceso de un estudiante validando matrícula y contraseña.
      * @param matricula Matrícula del estudiante
      * @param contrasenia Contraseña
-     * @return Objeto Usuarios si el acceso es exitoso, null en caso contrario
+     * @return Objeto Usuarios si el acceso es exitoso, de caso contrario lanza una excepción
      */
     public Usuarios accesoEstudiante(String matricula, String contrasenia) {
-        if (!Validadores.validarMatricula(matricula) || !Validadores.validarContrasenia(contrasenia)) {
-            System.err.println("Datos invalidos");
-            return null;
-        }
-
         Usuarios usuario = usuarioRepository.buscarPorMatricula(matricula);
 
-        if (usuario == null) {
-            System.err.println("Matricula no encontrada");
-            return null;
-        }
+        if (usuario == null) throw new IllegalArgumentException("Matrícula o contraseña invalida");
 
-        if (!usuario.getContrasenia().equals(contrasenia)) {
-            System.err.println("Contraseña incorrecta");
-            return null;
-        }
+        if (!usuario.getContrasenia().equals(contrasenia)) throw new IllegalArgumentException("Matrícula o contraseña invalida");
+        if (!usuario.isActivo()) throw new IllegalArgumentException("Cuenta inactiva");
 
-        if (!usuario.isActivo()) {
-            System.err.println("Cuenta inactiva");
-            return null;
-        }
-
-        System.out.println("Login exitoso");
         return usuario;
     }
     
