@@ -13,10 +13,9 @@ public class MainCMD {
             System.out.println("2. Registro de usuario");
             System.out.println("3. Gestión de productos");
             System.out.println("4. Gestión de pedidos");
-            System.out.println("5. Gestión de usuarios");
-            System.out.println("6. Gestión de sugerencias");
-            System.out.println("7. Panel de administrador");
-            System.out.println("8. Gestión de categorías");
+            System.out.println("5. Gestión de sugerencias");
+            System.out.println("6. Panel de administrador");
+            System.out.println("7. Gestión de categorías");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
@@ -35,15 +34,12 @@ public class MainCMD {
                     new PedidosViewCMD().mostrarMenu();
                     break;
                 case 5:
-                    new UsuariosViewCMD().mostrarMenu();
-                    break;
-                case 6:
                     new SugerenciasViewCMD().mostrarMenu();
                     break;
-                case 7:
+                case 6:
                     new AdministradorViewCMD().mostrarMenu();
                     break;
-                case 8:
+                case 7:
                     new CategoriasViewCMD().mostrarMenu();
                     break;
                 case 0:

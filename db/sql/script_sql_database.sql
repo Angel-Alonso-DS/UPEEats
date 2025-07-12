@@ -1,5 +1,5 @@
-CREATE DATABASE CafeteriaUniversitaria;
-USE CafeteriaUniversitaria;
+CREATE DATABASE Cafeteria;
+USE Cafeteria;
 
 -- Usuarios
 CREATE TABLE Usuarios (

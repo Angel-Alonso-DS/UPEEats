@@ -37,9 +37,9 @@ public abstract class Repository <T extends Entity>{
         }
     }
     
-    public void eliminar(int id) {
+    public void eliminar(long id) {
         try (PreparedStatement stmt = conexion.prepareStatement(eliminarQuery)) {
-            stmt.setInt(1, id);
+            stmt.setLong(1, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

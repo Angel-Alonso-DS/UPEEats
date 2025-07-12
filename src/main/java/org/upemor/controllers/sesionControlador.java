@@ -1,5 +1,6 @@
 package org.upemor.controllers;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import org.upemor.models.entities.Usuarios;
@@ -95,7 +96,7 @@ public class SesionControlador {
         Timestamp fechaRegistro = new Timestamp(System.currentTimeMillis());
         
         try {
-            Usuarios nuevoUsuario = new Usuarios(0, nombre, apellidoPaterno, apellidoMaterno, correo, contrasenia, telefono, true, rol, "", fechaRegistro);
+            Usuarios nuevoUsuario = new Usuarios(0, nombre, apellidoPaterno, apellidoMaterno, correo, contrasenia, telefono, false, rol, "", fechaRegistro);
             usuarioRepository.insertar(nuevoUsuario);
             System.out.println("Registro exitoso");
             return true;
@@ -166,5 +167,17 @@ public class SesionControlador {
 
         System.out.println("Login exitoso");
         return usuario;
+    }
+
+    public void editarPerfilEstudiante(Usuarios usuario, String nuevoNombre, String nuevoApellido, String nuevaContrasenia) {
+        
+    }
+    public void editarPerfilEstudiante(long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String nuevaContrasenia) {
+        Usuarios usuario = new Usuarios(id, nombre, apellidoPaterno, apellidoMaterno, null, nuevaContrasenia, telefono, true, null, null, null);
+        try {
+            usuarioRepository.actualizar(usuario);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

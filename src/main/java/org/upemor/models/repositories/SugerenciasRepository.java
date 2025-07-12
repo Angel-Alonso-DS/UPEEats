@@ -35,7 +35,7 @@ public class SugerenciasRepository extends Repository<Sugerencias> {
 
     @Override
     protected void prepararInsert(PreparedStatement stmt, Sugerencias s) throws SQLException {
-        stmt.setObject(1, s.getUsuario());
+        stmt.setLong(1, s.getUsuario() != null ? s.getUsuario().getId() : 0);
         stmt.setString(2, s.getTipoDieta());
         stmt.setString(3, s.getAlergias());
         stmt.setString(4, s.getComentarios());

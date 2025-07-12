@@ -52,4 +52,16 @@ public class AdministradorController {
         }
         return false;
     }
+
+    public boolean eliminarUsuario(long idUsuario) throws SQLException {
+        if (usuarioRepository.obtenerPorId(idUsuario) != null) {
+            usuarioRepository.eliminar(idUsuario);
+            return true;
+        }
+        return false;
+    }
+
+    public List<Usuarios> obtenerTodosUsuarios() {
+        return usuarioRepository.obtenerTodos();
+    }
 }

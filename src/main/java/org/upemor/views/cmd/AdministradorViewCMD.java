@@ -14,8 +14,10 @@ public class AdministradorViewCMD {
         do {
             System.out.println("\n--- Panel de Administrador ---");
             System.out.println("1. Listar empleados pendientes");
-            System.out.println("2. Aprobar empleado");
-            System.out.println("3. Desactivar usuario");
+            System.out.println("2. Listado de usuarios");
+            System.out.println("3. Aprobar empleado");
+            System.out.println("4. Desactivar usuario");
+            System.out.println("5. Eliminar usuario");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
@@ -25,10 +27,16 @@ public class AdministradorViewCMD {
                     listarEmpleadosPendientes();
                     break;
                 case 2:
-                    aprobarEmpleado();
+                    listarUsuarios();
                     break;
                 case 3:
+                    aprobarEmpleado();
+                    break;
+                case 4:
                     desactivarUsuario();
+                    break;
+                case 5:
+                    eliminarUsuario();
                     break;
                 case 0:
                     System.out.println("Saliendo...");
@@ -37,6 +45,26 @@ public class AdministradorViewCMD {
                     System.out.println("Opción inválida");
             }
         } while (opcion != 0);
+    }
+
+    private void eliminarUsuario() {
+        System.out.print("Ingrese el ID del usuario a eliminar: ");
+        long id = scanner.nextLong();
+        scanner.nextLine();
+        try {
+            boolean ok = adminController.desactivarUsuario(id);
+            System.out.println(ok ? "Usuario eliminado." : "No se pudo eliminar el usuario.");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private void listarUsuarios() {
+        List<Usuarios> usuarios = adminController.obtenerTodosUsuarios();
+        System.out.println("\n--- Listado de Usuarios ---");
+        for (Usuarios u : usuarios) {
+            System.out.println(u.getId() + " | " + u.getNombre() + " " + u.getApellidoPaterno() + " " + u.getApellidoMaterno() + " | " + u.getCorreo() + " | " + (u.isActivo() ? "Activo" : "Inactivo") + " | " + u.getRol());
+        }
     }
 
     private void listarEmpleadosPendientes() {

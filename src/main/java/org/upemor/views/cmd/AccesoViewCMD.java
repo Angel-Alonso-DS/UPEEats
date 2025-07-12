@@ -14,6 +14,7 @@ public class AccesoViewCMD {
             System.out.println("\n--- Acceso al Sistema UPEEats ---");
             System.out.println("1. Acceso Estudiante");
             System.out.println("2. Acceso Empleado");
+            System.out.println("3. Editar Perfil");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
@@ -24,6 +25,9 @@ public class AccesoViewCMD {
                     break;
                 case 2:
                     accesoEmpleado();
+                    break;
+                case 3:
+                    new EdicionPerfilViewCMD().mostrarMenu();
                     break;
                 case 0:
                     System.out.println("Saliendo...");

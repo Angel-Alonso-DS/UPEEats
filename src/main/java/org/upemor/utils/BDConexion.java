@@ -43,7 +43,7 @@ public class BDConexion {
      * @throws ClassNotFoundException si no se encuentra el driver
      */
     private void conexionMySQL() throws SQLException, ClassNotFoundException {
-        String url = "jdbc:mariadb://localhost:3306/cafeteria";
+        String url = "jdbc:mariadb://localhost:3306/Cafeteria";
         String usuario = "root";
         String password = "";
         Class.forName("org.mariadb.jdbc.Driver");
@@ -67,7 +67,7 @@ public class BDConexion {
      * @return instancia de BDConexion
      */
     public static BDConexion getInstance() {
-        if (instance == null) instance = new BDConexion(0);
+        if (instance == null) instance = new BDConexion(1);
         return instance;
     }
 
