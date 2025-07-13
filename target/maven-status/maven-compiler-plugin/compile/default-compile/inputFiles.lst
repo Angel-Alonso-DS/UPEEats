@@ -41,6 +41,11 @@ D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\
 D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\ProductosViewCMD.java
 D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\RegistroUsuarioViewCMD.java
 D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\SugerenciasViewCMD.java
-D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\Main.java
-D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\pages\Acceso.java
-D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\pages\Registro.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\estudiantes\Home.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\estudiantes\screens\Cuenta.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\estudiantes\screens\Inicio.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\estudiantes\screens\Menu.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\estudiantes\screens\Notificaciones.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\main\Main.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\main\pages\Acceso.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\main\pages\Registro.java
