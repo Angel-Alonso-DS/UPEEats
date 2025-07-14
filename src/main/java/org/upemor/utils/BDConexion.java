@@ -18,22 +18,31 @@ public class BDConexion {
 
     /**
      * Constructor privado. Inicializa la conexión según el tipo de base de datos.
-     * @param DATABASE_TYPE 1 para MySQL/MariaDB, 0 para SQLite
+     * @param DATABASE_TYPE 1 para MySQL/MariaDB, 0 para SQLite. Auque si falla la conexion MariaDB, se intentará SQLite.
+     * El usuario debe llamar a getInstance() para obtener la conexión.
+     * @throws IllegalArgumentException si el tipo de base de datos no es válido
+     * @throws SQLException si ocurre un error de SQL
+     * @throws ClassNotFoundException si no se encuentra el driver JDBC
      */
     private BDConexion(int DATABASE_TYPE) {
+        if (DATABASE_TYPE > 1 || DATABASE_TYPE < 0) throw new IllegalArgumentException("Tipo de base de datos no válido: " + DATABASE_TYPE);
         try {
-            if (DATABASE_TYPE > 1 || DATABASE_TYPE < 0) {
-                throw new IllegalArgumentException("Tipo de base de datos no válido: " + DATABASE_TYPE);
-            }
             if (DATABASE_TYPE == 1) {
                 conexionMySQL();
-                return;
+            } else {
+                conexionSQLite();
             }
-            conexionSQLite();
-            return;
-        } catch (Exception e) {
-            System.err.println("Error al conectar a la base de datos:");
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            System.err.println("Error al conectar a la base de datos: " + e.getMessage());
+            // Si falla la conexión a MySQL, intenta con SQLite
+            if (DATABASE_TYPE == 1) {
+                try {
+                    conexionSQLite();
+                    System.out.println("Conexión a SQLite establecida como alternativa.");
+                } catch (SQLException | ClassNotFoundException ex) {
+                    System.err.println("Error al conectar a SQLite: " + ex.getMessage());
+                }
+            }
         }
     }
 

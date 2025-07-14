@@ -19,7 +19,6 @@ import org.upemor.views.gui.main.Main;
  * @author Admin
  */
 public class Home extends javax.swing.JFrame {
-    private static Usuarios usuario;
     /**
      * Creates new form Home
      */
@@ -29,7 +28,6 @@ public class Home extends javax.swing.JFrame {
 
     public Home(Usuarios usuario) {
         initComponents();
-        this.usuario = usuario;
         textoNombre.setText(usuario.getNombre() + " " + usuario.getApellidoPaterno() + " " + usuario.getApellidoMaterno());
     }
 
