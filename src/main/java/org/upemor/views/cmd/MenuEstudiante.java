@@ -2,42 +2,46 @@ package org.upemor.views.cmd;
 
 import java.util.Scanner;
 
-import org.upemor.controllers.SesionControlador;
+import org.upemor.controllers.UsuariosController;
 import org.upemor.models.entities.Usuarios;
 import org.upemor.utils.Validadores;
 
 public class MenuEstudiante {
-    private final SesionControlador sesionControlador = new SesionControlador();
+    private final UsuariosController usuariosController = new UsuariosController();
     private final Scanner scanner = new Scanner(System.in);
     private Usuarios usuario;
 
     public void mostrarMenu(Usuarios usuario) {
         this.usuario = usuario;
-        System.out.println("\n--- Menu Estudiante ---");
-        System.out.println("1. Ver información personal");
-        System.out.println("2. Editar información personal");
-        System.out.println("3. Cerrar sesión");
-        System.out.println("0. Salir");
-        System.out.print("Seleccione una opción: ");
-        
-        int opcion = scanner.nextInt();
+        int opcion;
+        do{
+            System.out.println("\n--- Menu Estudiante ---");
+            System.out.println("1. Ver información personal");
+            System.out.println("2. Editar información personal");
+            System.out.println("3. Cerrar sesión");
+            System.out.println("0. Salir");
+            System.out.print("Seleccione una opción: ");
+            
+            opcion = scanner.nextInt();
+            scanner.nextLine();
 
-        switch (opcion) {
-            case 1:
-                verInformacionPersonal();
-                break;
-            case 2:
-                editarInformacionPersonal();
-                break;
-            case 3:
-                cerrarSesion();
-                break;
-            case 0:
-                System.out.println("Saliendo del sistema...");
-                break;
-            default:
-                System.out.println("Opción inválida");
-        }
+            switch (opcion) {
+                case 1:
+                    verInformacionPersonal();
+                    break;
+                case 2:
+                    editarInformacionPersonal();
+                    break;
+                case 3:
+                    cerrarSesion();
+                    break;
+                case 0:
+                    System.out.println("Saliendo del sistema...");
+                    break;
+                default:
+                    System.out.println("Opción inválida");
+            }
+        } while (opcion != 0);
     }
 
     private void editarInformacionPersonal() {
@@ -63,23 +67,25 @@ public class MenuEstudiante {
             Validadores.validarApellido(nuevoApellidoPaterno);
             Validadores.validarApellido(nuevoApellidoMaterno);
             Validadores.validarTelefono(nuevoTelefono);
-            
-            sesionControlador.editarUsuario(usuario.getId(), nuevoNombre, nuevoApellidoPaterno, nuevoApellidoMaterno, nuevoTelefono);
+
+            usuariosController.editarUsuario(usuario.getId(), nuevoNombre, nuevoApellidoPaterno, nuevoApellidoMaterno, nuevoTelefono);
             System.out.println("Información actualizada exitosamente.");
+
         } catch (Exception e) {
-            System.out.println("Error de validación: " + e.getMessage());
+            System.out.println("Error de validación: " + e);
             return;
         }
     }
     
     private void verInformacionPersonal() {
-        System.out.println("Información Personal:");
-        System.out.println("Matrícula: " + usuario.getMatricula());
-        System.out.println("Nombre: " + usuario.getNombre());
-        System.out.println("Apellido Paterno: " + usuario.getApellidoPaterno());
-        System.out.println("Apellido Materno: " + usuario.getApellidoMaterno());
-        System.out.println("Correo: " + usuario.getCorreo());
-        System.out.println("Teléfono: " + usuario.getTelefono());
+        Usuarios u = usuariosController.buscarPorId(usuario.getId());
+        System.out.println("\n--- Información Personal ---");
+        System.out.println("Matrícula: " + u.getMatricula());
+        System.out.println("Nombre: " + u.getNombre());
+        System.out.println("Apellido Paterno: " + u.getApellidoPaterno());
+        System.out.println("Apellido Materno: " + u.getApellidoMaterno());
+        System.out.println("Correo: " + u.getCorreo());
+        System.out.println("Teléfono: " + u.getTelefono());
     }
 
     private void cerrarSesion() {

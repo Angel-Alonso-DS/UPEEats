@@ -24,16 +24,32 @@ public class UsuariosController {
             return null;
         }
     }
+    public Usuarios buscarPorMatricula(String matricula) {
+        return usuarioRepository.buscarPorMatricula(matricula);
+    }
+    public Usuarios buscarPorCorreo(String correo) {
+        return usuarioRepository.buscarPorCorreo(correo);
+    }
+
 
     public void insertar(Usuarios usuario) {
         usuarioRepository.insertar(usuario);
     }
 
-    public void actualizar(Usuarios usuario) {
+    public void editarUsuario(long id, String nuevoNombre, String nuevoApellidoPaterno, String nuevoApellidoMaterno, String nuevoTelefono) {
         try {
+            Usuarios usuario = usuarioRepository.obtenerPorId(id);
+            
+            if (usuario == null) throw new IllegalArgumentException("Usuario no encontrado");
+    
+            usuario.setNombre(nuevoNombre);
+            usuario.setApellidoPaterno(nuevoApellidoPaterno);
+            usuario.setApellidoMaterno(nuevoApellidoMaterno);
+            usuario.setTelefono(nuevoTelefono);
             usuarioRepository.actualizar(usuario);
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error al actualizar el usuario", e);
         }
     }
 

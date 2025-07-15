@@ -1,11 +1,15 @@
 package org.upemor.views.cmd;
 
 import org.upemor.controllers.AdministradorController;
+import org.upemor.controllers.SesionControlador;
 import org.upemor.models.entities.Usuarios;
+import org.upemor.utils.Validadores;
+
 import java.util.List;
 import java.util.Scanner;
 
 public class MenuAdministrador {
+    private final SesionControlador sesionControlador = new SesionControlador();
     private final AdministradorController adminController = new AdministradorController();
     private final Scanner scanner = new Scanner(System.in);
 
@@ -13,7 +17,7 @@ public class MenuAdministrador {
         int opcion;
         do {
             System.out.println("\n--- Panel de Administrador ---");
-            System.out.println("1. Listar empleados pendientes");
+            System.out.println("1. Listado de empleados pendientes");
             System.out.println("2. Listado de usuarios");
             System.out.println("3. Aprobar empleado");
             System.out.println("4. Desactivar usuario");
@@ -47,12 +51,37 @@ public class MenuAdministrador {
         } while (opcion != 0);
     }
 
+    private boolean confirmarAcceso() {
+        System.out.println("Seguro que desea continuar? (S/N): ");
+        String confirmacion = scanner.nextLine().trim().toUpperCase();
+        
+        if (!confirmacion.equals("S")) return false;
+
+        System.out.print("Ingrese su correo electrónico: ");
+        String correo = scanner.nextLine();
+        System.out.print("Ingrese su contraseña: ");
+        String contrasenia = scanner.nextLine();
+
+        try {
+            Validadores.validarCorreo(correo);
+            Validadores.validarContrasenia(contrasenia);
+            Usuarios usuario = sesionControlador.accesoEmpleado(correo, contrasenia);
+            return usuario != null;
+        } catch (Exception e) {
+            System.err.println("Error al acceder: " + e.getMessage());
+            return false;
+        }
+    }
+
     private void eliminarUsuario() {
         System.out.print("Ingrese el ID del usuario a eliminar: ");
         long id = scanner.nextLong();
         scanner.nextLine();
+
+        if (!confirmarAcceso()) return;
+
         try {
-            boolean ok = adminController.desactivarUsuario(id);
+            boolean ok = adminController.eliminarUsuario(id);
             System.out.println(ok ? "Usuario eliminado." : "No se pudo eliminar el usuario.");
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -71,7 +100,7 @@ public class MenuAdministrador {
         List<Usuarios> empleados = adminController.obtenerEmpleadosPendientes();
         System.out.println("\n--- Empleados pendientes de aprobación ---");
         for (Usuarios u : empleados) {
-            System.out.println(u.getId() + " | " + u.getNombre() + " " + u.getApellidoPaterno());
+            System.out.println(u.getId() + "\t| " + u.getNombre() + " " + u.getApellidoPaterno());
         }
     }
 
@@ -79,6 +108,9 @@ public class MenuAdministrador {
         System.out.print("Ingrese el ID del empleado a aprobar: ");
         long id = scanner.nextLong();
         scanner.nextLine();
+        
+        if (!confirmarAcceso()) return;
+
         try {
             boolean ok = adminController.aprobarEmpleado(id);
             System.out.println(ok ? "Empleado aprobado." : "No se pudo aprobar el empleado.");
@@ -91,6 +123,9 @@ public class MenuAdministrador {
         System.out.print("Ingrese el ID del usuario a desactivar: ");
         long id = scanner.nextLong();
         scanner.nextLine();
+        
+        if (!confirmarAcceso()) return;
+
         try {
             boolean ok = adminController.desactivarUsuario(id);
             System.out.println(ok ? "Usuario desactivado." : "No se pudo desactivar el usuario.");

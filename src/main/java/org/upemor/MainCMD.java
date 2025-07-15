@@ -15,16 +15,27 @@ public class MainCMD {
             System.out.println("\n--- UPEEats Sistema de Pruebas CMD ---");
             System.out.println("1. Acceso al sistema como estudiante");
             System.out.println("2. Acceso al sistema como empleado");
+            System.out.println("3. Registro de nuevo estudiante");
+            System.out.println("4. Registro de nuevo empleado");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
             scanner.nextLine();
+            
             switch (opcion) {
                 case 1:
-                    accesoEstudiante(sesionControlador);
+                    accesoEstudiante(sesionControlador, scanner);
                     break;
                 case 2:
-                    accesoEmpleado(sesionControlador);
+                    accesoEmpleado(sesionControlador, scanner);
+                    break;
+                case 3:
+                    RegistroUsuarioViewCMD registroEstudiante = new RegistroUsuarioViewCMD();
+                    registroEstudiante.registrarEstudiante();
+                    break;
+                case 4:
+                    RegistroUsuarioViewCMD registroEmpleado = new RegistroUsuarioViewCMD();
+                    registroEmpleado.registrarEmpleado();
                     break;
                 case 0:
                     System.out.println("Saliendo del sistema...");
@@ -37,14 +48,12 @@ public class MainCMD {
         scanner.close();
     }
 
-    private static void accesoEstudiante(SesionControlador sesionControlador) {
-        Scanner scanner = new Scanner(System.in);
+    private static void accesoEstudiante(SesionControlador sesionControlador, Scanner scanner) {
         System.out.print("Matrícula: ");
         String matricula = scanner.nextLine();
         System.out.print("Contraseña: ");
         String contrasenia = scanner.nextLine();
-        scanner.close();
-        
+
         try {
             Validadores.validarMatricula(matricula);
             Validadores.validarContrasenia(contrasenia);
@@ -52,21 +61,20 @@ public class MainCMD {
             Usuarios usuario = sesionControlador.accesoEstudiante(matricula, contrasenia);
             
             System.out.println("Bienvenido, " + usuario.getNombre() + " " + usuario.getApellidoPaterno() + " " + usuario.getApellidoMaterno());
+            
             MenuEstudiante menuEstudiante = new MenuEstudiante();
             menuEstudiante.mostrarMenu(usuario);
 
         } catch (Exception e) {
-            System.err.println("Error al acceder: " + e.getMessage());
+            System.err.println("Error al acceder: " + e);
         }
     }
 
-    private static void accesoEmpleado(SesionControlador sesionControlador) {
-        Scanner scanner = new Scanner(System.in);
+    private static void accesoEmpleado(SesionControlador sesionControlador, Scanner scanner) {
         System.out.print("Correo: ");
         String correo = scanner.nextLine();
         System.out.print("Contraseña: ");
         String contrasenia = scanner.nextLine();
-        scanner.close();
         
         try {
             Validadores.validarCorreo(correo);

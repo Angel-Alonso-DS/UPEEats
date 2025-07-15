@@ -7,33 +7,7 @@ public class RegistroUsuarioViewCMD {
     private final SesionControlador sesionControlador = new SesionControlador();
     private final Scanner scanner = new Scanner(System.in);
 
-    public void mostrarMenu() {
-        int opcion;
-        do {
-            System.out.println("\n--- Registro de Usuario ---");
-            System.out.println("1. Registrar estudiante");
-            System.out.println("2. Registrar empleado");
-            System.out.println("0. Salir");
-            System.out.print("Seleccione una opción: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine();
-            switch (opcion) {
-                case 1:
-                    registrarEstudiante();
-                    break;
-                case 2:
-                    registrarEmpleado();
-                    break;
-                case 0:
-                    System.out.println("Saliendo...");
-                    break;
-                default:
-                    System.out.println("Opción inválida");
-            }
-        } while (opcion != 0);
-    }
-
-    private void registrarEstudiante() {
+    public void registrarEstudiante() {
         System.out.print("Nombre: ");
         String nombre = scanner.nextLine();
         System.out.print("Apellido paterno: ");
@@ -52,7 +26,7 @@ public class RegistroUsuarioViewCMD {
         System.out.println(ok ? "Registro exitoso." : "No se pudo registrar el estudiante.");
     }
 
-    private void registrarEmpleado() {
+    public void registrarEmpleado() {
         System.out.print("Nombre: ");
         String nombre = scanner.nextLine();
         System.out.print("Apellido paterno: ");

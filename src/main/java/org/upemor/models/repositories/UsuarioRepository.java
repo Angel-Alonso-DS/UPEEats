@@ -110,7 +110,7 @@ public class UsuarioRepository extends Repository<Usuarios> {
     @Override
     protected void inicializarQueries() {
         insertarQuery = "INSERT INTO Usuarios (nombre, apellido_paterno, apellido_materno, correo, contrasenia, telefono, activo, rol, matricula, fecha_registro) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        actualizarQuery = "UPDATE Usuarios SET nombre=?, apellido_paterno=?, apellido_materno=?, contrasenia=?, telefono=? WHERE id_usuario=?";
+        actualizarQuery = "UPDATE Usuarios SET nombre=?, apellido_paterno=?, apellido_materno=?, telefono=? WHERE id_usuario=?";
         eliminarQuery = "DELETE FROM Usuarios WHERE id_usuario=?";
         seleccionarTodoQuery = "SELECT * FROM Usuarios";
         seleccionarPorIdQuery = "SELECT * FROM Usuarios WHERE id_usuario=?";
@@ -167,12 +167,10 @@ public class UsuarioRepository extends Repository<Usuarios> {
      */
     @Override
     protected void prepararActualizar(PreparedStatement stmt, Usuarios u) throws SQLException {
-        prepararInsert(stmt, u);
         stmt.setString(1, u.getNombre());
         stmt.setString(2, u.getApellidoPaterno());
         stmt.setString(3, u.getApellidoMaterno());
-        stmt.setString(4, u.getContrasenia());
-        stmt.setString(5, u.getTelefono());
-        stmt.setLong(6, u.getId());
+        stmt.setString(4, u.getTelefono());
+        stmt.setLong(5, u.getId());
     }
 }

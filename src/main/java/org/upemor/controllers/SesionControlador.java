@@ -1,6 +1,5 @@
 package org.upemor.controllers;
 
-import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import org.upemor.models.entities.Usuarios;
@@ -104,24 +103,9 @@ public class SesionControlador {
 
         if (!usuario.isActivo()) throw new IllegalArgumentException("Cuenta inactiva");
 
-        System.out.println("Login exitoso");
+        System.out.println("Acceso consedido");
         return usuario;
     }
 
-    public void editarUsuario(long id, String nuevoNombre, String nuevoApellidoPaterno, String nuevoApellidoMaterno, String nuevoTelefono) {
-        try {
-            Usuarios usuario = usuarioRepository.obtenerPorId(id);
-            
-            if (usuario == null) throw new IllegalArgumentException("Usuario no encontrado");
     
-            usuario.setNombre(nuevoNombre);
-            usuario.setApellidoPaterno(nuevoApellidoPaterno);
-            usuario.setApellidoMaterno(nuevoApellidoMaterno);
-            usuario.setTelefono(nuevoTelefono);
-            usuarioRepository.actualizar(usuario);
-            System.out.println("Información actualizada exitosamente");
-        } catch (SQLException e) {
-            throw new RuntimeException("Error al actualizar el usuario", e);
-        }
-    }
 }

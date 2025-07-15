@@ -3,11 +3,13 @@ package org.upemor.views.cmd;
 import java.util.Scanner;
 
 import org.upemor.controllers.SesionControlador;
+import org.upemor.controllers.UsuariosController;
 import org.upemor.models.entities.Usuarios;
 import org.upemor.utils.Validadores;
 
 public class MenuEmpleado {
     private final SesionControlador sesionControlador = new SesionControlador();
+    private final UsuariosController usuariosController = new UsuariosController();
     private final Scanner scanner = new Scanner(System.in);
 
     private Usuarios usuario;
@@ -23,7 +25,7 @@ public class MenuEmpleado {
             System.out.println("4. Gestion de categorías");
             System.out.println("5. Cerrar sesión");
         
-            if (usuario.getRol().equals("Administrador")) System.out.println("6. Gestion de usuarios");
+            if (usuario.getRol().equals("adminsitrador")) System.out.println("6. Gestion de usuarios");
             
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
@@ -33,10 +35,10 @@ public class MenuEmpleado {
 
             switch (opcion) {
                 case 1:
-                    verInformacionPersonal();
+                    if (confirmarAcceso()) verInformacionPersonal();
                     break;
                 case 2:
-                    editarInformacionPersonal();
+                    if (confirmarAcceso()) editarInformacionPersonal();
                     break;
                 case 3:
                     MenuProductos menuProductos = new MenuProductos();
@@ -50,7 +52,7 @@ public class MenuEmpleado {
                     cerrarSesion();
                     break;
                 case 6:
-                    if (usuario.getRol().equals("Administrador")) {
+                    if (usuario.getRol().equals("adminsitrador")) {
                         MenuAdministrador menuAdministrador = new MenuAdministrador();
                         menuAdministrador.mostrarMenu();
                     } else {
@@ -63,9 +65,25 @@ public class MenuEmpleado {
         } while (opcion != 0);
     }
 
+    private boolean confirmarAcceso() {
+        System.out.println("Ingrese su correo electrónico: ");
+        String correo = scanner.nextLine();
+        System.out.println("Ingrese su contraseña: ");
+        String contrasenia = scanner.nextLine();
+
+        try {
+            Validadores.validarCorreo(correo);
+            Validadores.validarContrasenia(contrasenia);
+            sesionControlador.accesoEmpleado(correo, contrasenia);
+        } catch (Exception e) {
+            System.err.println("Error al acceder: " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
     private void editarInformacionPersonal() {
         System.out.println("Editar Información Personal:");
-
         System.out.print("Nuevo Nombre: ");
         String nuevoNombre = scanner.nextLine();
         if (nuevoNombre.isEmpty()) nuevoNombre = usuario.getNombre();
@@ -85,7 +103,7 @@ public class MenuEmpleado {
             Validadores.validarApellido(nuevoApellidoMaterno);
             Validadores.validarTelefono(nuevoTelefono);
 
-            sesionControlador.editarUsuario(usuario.getId(), nuevoNombre, nuevoApellidoPaterno, nuevoApellidoMaterno, nuevoTelefono);
+            usuariosController.editarUsuario(usuario.getId(), nuevoNombre, nuevoApellidoPaterno, nuevoApellidoMaterno, nuevoTelefono);
             System.out.println("Información actualizada exitosamente.");
         } catch (Exception e) {
             System.err.println("Error al actualizar la información: " + e.getMessage());
@@ -93,7 +111,8 @@ public class MenuEmpleado {
     }
 
     private void verInformacionPersonal() {
-        System.out.println("Información Personal:");
+        System.out.println("\n--- Información Personal ---");
+        System.out.println("ID: " + usuario.getId());
         System.out.println("Nombre: " + usuario.getNombre());
         System.out.println("Apellido Paterno: " + usuario.getApellidoPaterno());
         System.out.println("Apellido Materno: " + usuario.getApellidoMaterno());
