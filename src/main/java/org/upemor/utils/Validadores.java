@@ -1,6 +1,5 @@
 package org.upemor.utils;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 
 /**
@@ -142,9 +141,10 @@ public class Validadores {
      * @param tiempo Objeto Time a validar
      * @return true si es válido, de caso contrario lanza una excepción
      */
-    public static boolean validarTiempo(Time tiempo) {
+    public static boolean validarTiempo(String tiempo) {
         if (tiempo == null) throw new IllegalArgumentException("No dejes campos vacios");
-        if (tiempo.getTime() < 0) throw new IllegalArgumentException("El tiempo no puede ser negativo");
+        String regex = "(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d$";
+        if (!tiempo.matches(regex)) throw new IllegalArgumentException("El tiempo no puede ser negativo");
         return true;
     }
 

@@ -3,6 +3,7 @@ package org.upemor.views.cmd;
 import org.upemor.controllers.ProductosController;
 import org.upemor.models.entities.Categorias;
 import org.upemor.models.entities.Productos;
+import org.upemor.utils.Validadores;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,12 @@ public class MenuProductos {
                     System.out.println("Opción inválida");
             }
         } while (opcion != 0);
+    }
+    
+    private boolean continuarAccion(String mensaje) {
+        System.out.print(mensaje + " (s/n): ");
+        String respuesta = scanner.nextLine().trim().toLowerCase();
+        return respuesta.equals("s") || respuesta.equals("si");
     }
 
     private void agregarProducto() {
@@ -131,14 +138,30 @@ public class MenuProductos {
         } else {
             categorias = p.getCategorias();
         }
-        productosController.actualizar(id, nombre, imagen, descripcion, precio, tiempo, disponible, p.getFechaRegistro(), categorias);
-        System.out.println("Producto actualizado.");
+        
+        if (!continuarAccion("¿Deseas editar?")) return;
+        
+        try {
+            Validadores.validarNombre(nombre);
+            Validadores.validarImagenURL(imagen);
+            Validadores.validarTexto(descripcion);
+            Validadores.validarCosto(precio);
+            Validadores.validarTiempo(tiempo);
+            
+            productosController.actualizar(id, nombre, imagen, descripcion, precio, tiempo, disponible, p.getFechaRegistro(), categorias);
+            System.out.println("Producto actualizado.");
+        } catch (Exception e) {
+            System.err.println("Error: " + e);
+        }
     }
 
     private void eliminarProducto() {
         System.out.print("ID del producto a eliminar: ");
         int id = scanner.nextInt();
         scanner.nextLine();
+        
+        if (!continuarAccion("¿Deseas eliminar?")) return;
+        
         productosController.eliminar(id);
         System.out.println("Producto eliminado.");
     }
@@ -147,7 +170,7 @@ public class MenuProductos {
         List<Productos> productos = productosController.obtenerTodos();
         System.out.println("\n--- Lista de Productos ---");
         for (Productos p : productos) {
-            System.out.println(p.getId() + " - " + p.getNombreProducto() + " | $" + p.getPrecio());
+            System.out.println(p.getId() + " - " + p.getNombreProducto() + "\t| $" + p.getPrecio());
         }
     }
 
@@ -157,7 +180,7 @@ public class MenuProductos {
         List<Productos> productos = productosController.buscarPorNombre(nombre);
         System.out.println("\n--- Resultados ---");
         for (Productos p : productos) {
-            System.out.println(p.getId() + " - " + p.getNombreProducto() + " | $" + p.getPrecio());
+            System.out.println(p.getId() + " - " + p.getNombreProducto() + "\t| $" + p.getPrecio());
         }
     }
 
@@ -168,7 +191,7 @@ public class MenuProductos {
         List<Productos> productos = productosController.buscarPorCategoria(idCat);
         System.out.println("\n--- Resultados ---");
         for (Productos p : productos) {
-            System.out.println(p.getId() + " - " + p.getNombreProducto() + " | $" + p.getPrecio());
+            System.out.println(p.getId() + " - " + p.getNombreProducto() + "\t| $" + p.getPrecio());
         }
     }
 }

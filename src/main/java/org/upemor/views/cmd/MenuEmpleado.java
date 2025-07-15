@@ -111,14 +111,15 @@ public class MenuEmpleado {
     }
 
     private void verInformacionPersonal() {
+        Usuarios u = usuariosController.buscarPorId(usuario.getId());
         System.out.println("\n--- Información Personal ---");
-        System.out.println("ID: " + usuario.getId());
-        System.out.println("Nombre: " + usuario.getNombre());
-        System.out.println("Apellido Paterno: " + usuario.getApellidoPaterno());
-        System.out.println("Apellido Materno: " + usuario.getApellidoMaterno());
-        System.out.println("Correo: " + usuario.getCorreo());
-        System.out.println("Teléfono: " + usuario.getTelefono());
-        System.out.println("Rol: " + usuario.getRol());
+        System.out.println("ID: " + u.getId());
+        System.out.println("Nombre: " + u.getNombre());
+        System.out.println("Apellido Paterno: " + u.getApellidoPaterno());
+        System.out.println("Apellido Materno: " + u.getApellidoMaterno());
+        System.out.println("Correo: " + u.getCorreo());
+        System.out.println("Teléfono: " + u.getTelefono());
+        System.out.println("Rol: " + u.getRol());
     }
 
     private void cerrarSesion() {

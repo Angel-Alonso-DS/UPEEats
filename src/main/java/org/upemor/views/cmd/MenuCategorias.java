@@ -2,6 +2,8 @@ package org.upemor.views.cmd;
 
 import org.upemor.controllers.CategoriasController;
 import org.upemor.models.entities.Categorias;
+import org.upemor.utils.Validadores;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -47,11 +49,17 @@ public class MenuCategorias {
         } while (opcion != 0);
     }
 
+    private boolean continuarAccion(String mensaje) {
+        System.out.print(mensaje + " (s/n): ");
+        String respuesta = scanner.nextLine().trim().toLowerCase();
+        return respuesta.equals("s") || respuesta.equals("si");
+    }
+
     private void listarTodas() {
         List<Categorias> categorias = categoriasController.obtenerTodas();
         System.out.println("\n--- Lista de Categorías ---");
         for (Categorias c : categorias) {
-            System.out.println(c.getId() + " | " + c.getNombre() + " | " + c.getDescripcion());
+            System.out.println(c.getId() + " | " + c.getNombre() + "\t| " + c.getDescripcion());
         }
     }
 
@@ -72,8 +80,14 @@ public class MenuCategorias {
         String nombre = scanner.nextLine();
         System.out.print("Descripción: ");
         String descripcion = scanner.nextLine();
-        categoriasController.insertar(nombre, descripcion);
-        System.out.println("Categoría agregada.");
+        try {
+            Validadores.validarNombre(nombre);
+            Validadores.validarTexto(descripcion);
+            categoriasController.insertar(nombre, descripcion);
+            System.out.println("Categoría agregada.");
+        } catch (Exception e) {
+            System.err.println("Error: " + e);
+        }
     }
 
     private void editarCategoria() {
@@ -91,14 +105,26 @@ public class MenuCategorias {
         System.out.print("Nueva descripción (actual: " + cat.getDescripcion() + "): ");
         String descripcion = scanner.nextLine();
         if (descripcion.isEmpty()) descripcion = cat.getDescripcion();
-        categoriasController.actualizar(id, nombre, descripcion);
-        System.out.println("Categoría actualizada.");
+
+        if(!continuarAccion("¿Deseas editar?")) return;
+
+        try {
+            Validadores.validarNombre(nombre);
+            Validadores.validarTexto(descripcion);
+            categoriasController.actualizar(id, nombre, descripcion);
+            System.out.println("Categoría actualizada.");
+        } catch (Exception e) {
+            System.err.println("Error: " + e);
+        }
     }
 
     private void eliminarCategoria() {
         System.out.print("ID de la categoría a eliminar: ");
         int id = scanner.nextInt();
         scanner.nextLine();
+        
+        if(!continuarAccion("¿Deseas eliminar?")) return;
+        
         categoriasController.eliminar(id);
         System.out.println("Categoría eliminada.");
     }
