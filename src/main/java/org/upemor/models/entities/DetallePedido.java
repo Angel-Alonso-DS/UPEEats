@@ -17,8 +17,6 @@ public class DetallePedido extends Entity {
     private double subtotal;
     private String observaciones;
 
-
-    
     /**
      * Constructor de la entidad DetallePedido.
      * @param newId identificador único

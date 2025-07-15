@@ -12,10 +12,7 @@ import lombok.Getter;
 public class Categorias extends Entity {
     private String nombre;
     private String descripcion;
-
-
-
-
+    
     /**
      * Constructor de la entidad Categorias.
      * @param newId identificador único
