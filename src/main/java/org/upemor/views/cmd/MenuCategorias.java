@@ -5,7 +5,7 @@ import org.upemor.models.entities.Categorias;
 import java.util.List;
 import java.util.Scanner;
 
-public class CategoriasViewCMD {
+public class MenuCategorias {
     private final CategoriasController categoriasController = new CategoriasController();
     private final Scanner scanner = new Scanner(System.in);
 

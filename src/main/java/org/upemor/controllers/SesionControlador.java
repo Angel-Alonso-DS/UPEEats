@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 
 import org.upemor.models.entities.Usuarios;
 import org.upemor.models.repositories.UsuarioRepository;
-import org.upemor.utils.Validadores;
 
 /**
  * Controlador para la gestión de sesiones y registro de usuarios en UPEEats.
@@ -56,35 +55,19 @@ public class SesionControlador {
      * @return true si el registro fue exitoso, false en caso contrario
      */
     public boolean registrarEmpleado(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, String rol) {
-        if (Validadores.validarNombre(nombre) && 
-            Validadores.validarApellido(apellidoPaterno) &&
-            Validadores.validarApellido(apellidoMaterno) &&
-            Validadores.validarCorreo(correo) &&
-            Validadores.validarContrasenia(contrasenia) &&
-            Validadores.validarTelefono(telefono) &&
-            Validadores.validarRol(rol)
-        ) {
-            if (nombre == null || apellidoPaterno == null || apellidoMaterno == null || correo == null || contrasenia == null || telefono == null || rol == null) {
-                System.err.println("Datos incorrectos");
-                return false;
-            }
-        }
-
-        if (usuarioRepository.existeCorreo(correo)) {
-            System.err.println("Correo ya registrado");
-            return false;
-        }
+        if (usuarioRepository.existeCorreo(correo)) throw new IllegalArgumentException("Correo ya registrado");
 
         Timestamp fechaRegistro = new Timestamp(System.currentTimeMillis());
         
         try {
             Usuarios nuevoUsuario = new Usuarios(0, nombre, apellidoPaterno, apellidoMaterno, correo, contrasenia, telefono, false, rol, "", fechaRegistro);
+            
             usuarioRepository.insertar(nuevoUsuario);
             System.out.println("Registro exitoso");
+            
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
-            return false; // Manejo de excepciones
+            throw new RuntimeException("Error al registrar empleado", e);
         }
     }
     
@@ -100,6 +83,7 @@ public class SesionControlador {
         if (usuario == null) throw new IllegalArgumentException("Matrícula o contraseña invalida");
 
         if (!usuario.getContrasenia().equals(contrasenia)) throw new IllegalArgumentException("Matrícula o contraseña invalida");
+        
         if (!usuario.isActivo()) throw new IllegalArgumentException("Cuenta inactiva");
 
         return usuario;
@@ -112,38 +96,32 @@ public class SesionControlador {
      * @return Objeto Usuarios si el acceso es exitoso, null en caso contrario
      */
     public Usuarios accesoEmpleado(String correo, String contrasenia) {
-        if (!Validadores.validarCorreo(correo) || !Validadores.validarContrasenia(contrasenia)) return null;
-
         Usuarios usuario = usuarioRepository.buscarPorCorreo(correo);
 
-        if (usuario == null) {
-            System.err.println("Correo no encontrado");
-            return null;
-        }
+        if (usuario == null) throw new IllegalArgumentException("Correo o contraseña incorrectos");
 
-        if (!usuario.getContrasenia().equals(contrasenia)) {
-            System.err.println("Contraseña incorrecta");
-            return null;
-        }
+        if (!usuario.getContrasenia().equals(contrasenia)) throw new IllegalArgumentException("Correo o contraseña incorrectos");
 
-        if (!usuario.isActivo()) {
-            System.err.println("Cuenta inactiva");
-            return null;
-        }
+        if (!usuario.isActivo()) throw new IllegalArgumentException("Cuenta inactiva");
 
         System.out.println("Login exitoso");
         return usuario;
     }
 
-    public void editarPerfilEstudiante(Usuarios usuario, String nuevoNombre, String nuevoApellido, String nuevaContrasenia) {
-        
-    }
-    public void editarPerfilEstudiante(long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String nuevaContrasenia) {
-        Usuarios usuario = new Usuarios(id, nombre, apellidoPaterno, apellidoMaterno, null, nuevaContrasenia, telefono, true, null, null, null);
+    public void editarUsuario(long id, String nuevoNombre, String nuevoApellidoPaterno, String nuevoApellidoMaterno, String nuevoTelefono) {
         try {
+            Usuarios usuario = usuarioRepository.obtenerPorId(id);
+            
+            if (usuario == null) throw new IllegalArgumentException("Usuario no encontrado");
+    
+            usuario.setNombre(nuevoNombre);
+            usuario.setApellidoPaterno(nuevoApellidoPaterno);
+            usuario.setApellidoMaterno(nuevoApellidoMaterno);
+            usuario.setTelefono(nuevoTelefono);
             usuarioRepository.actualizar(usuario);
+            System.out.println("Información actualizada exitosamente");
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error al actualizar el usuario", e);
         }
     }
 }

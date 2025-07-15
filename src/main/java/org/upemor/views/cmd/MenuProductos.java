@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ProductosViewCMD {
+public class MenuProductos {
     private final org.upemor.controllers.CategoriasController categoriasController = new org.upemor.controllers.CategoriasController();
     private final ProductosController productosController = new ProductosController();
     private final Scanner scanner = new Scanner(System.in);

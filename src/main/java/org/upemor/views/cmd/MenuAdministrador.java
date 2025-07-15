@@ -5,7 +5,7 @@ import org.upemor.models.entities.Usuarios;
 import java.util.List;
 import java.util.Scanner;
 
-public class AdministradorViewCMD {
+public class MenuAdministrador {
     private final AdministradorController adminController = new AdministradorController();
     private final Scanner scanner = new Scanner(System.in);
 
