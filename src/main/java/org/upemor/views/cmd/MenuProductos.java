@@ -9,11 +9,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Clase MenuProductos
+ * Proporciona la interfaz de gestión por consola para los productos en UPEEats.
+ * Permite listar, buscar, agregar, editar y eliminar productos mediante opciones interactivas.
+ */
 public class MenuProductos {
+    // Controlador para operaciones sobre categorías
     private final org.upemor.controllers.CategoriasController categoriasController = new org.upemor.controllers.CategoriasController();
+    // Controlador para operaciones sobre productos
     private final ProductosController productosController = new ProductosController();
+    // Scanner para leer la entrada del usuario desde la consola
     private final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Muestra el menú principal de gestión de productos y gestiona las opciones seleccionadas.
+     * Permite al usuario realizar acciones CRUD sobre los productos.
+     */
     public void mostrarMenu() {
         int opcion;
         do {
@@ -55,13 +67,22 @@ public class MenuProductos {
             }
         } while (opcion != 0);
     }
-    
+
+    /**
+     * Solicita confirmación al usuario antes de realizar una acción sensible.
+     * @param mensaje Mensaje de confirmación.
+     * @return true si el usuario confirma, false en caso contrario.
+     */
     private boolean continuarAccion(String mensaje) {
         System.out.print(mensaje + " (s/n): ");
         String respuesta = scanner.nextLine().trim().toLowerCase();
         return respuesta.equals("s") || respuesta.equals("si");
     }
 
+    /**
+     * Agrega un nuevo producto a la plataforma.
+     * Solicita los datos del producto, valida la entrada y realiza la inserción.
+     */
     private void agregarProducto() {
         System.out.print("Nombre: ");
         String nombre = scanner.nextLine();
@@ -96,6 +117,11 @@ public class MenuProductos {
         System.out.println("Producto agregado.");
     }
 
+    /**
+     * Edita un producto existente.
+     * Solicita el ID, muestra los datos actuales y permite modificar los campos.
+     * Valida los datos antes de actualizar.
+     */
     private void editarProducto() {
         System.out.print("ID del producto a editar: ");
         long id = scanner.nextLong();
@@ -155,6 +181,10 @@ public class MenuProductos {
         }
     }
 
+    /**
+     * Elimina un producto de la plataforma.
+     * Solicita el ID y confirma la acción antes de eliminar.
+     */
     private void eliminarProducto() {
         System.out.print("ID del producto a eliminar: ");
         int id = scanner.nextInt();
@@ -166,6 +196,9 @@ public class MenuProductos {
         System.out.println("Producto eliminado.");
     }
 
+    /**
+     * Muestra el listado de todos los productos registrados en la plataforma.
+     */
     private void listarTodos() {
         List<Productos> productos = productosController.obtenerTodos();
         System.out.println("\n--- Lista de Productos ---");
@@ -174,6 +207,10 @@ public class MenuProductos {
         }
     }
 
+    /**
+     * Busca y muestra productos por nombre o parte del nombre.
+     * Solicita el texto al usuario y muestra los resultados.
+     */
     private void buscarPorNombre() {
         System.out.print("Ingrese el nombre o parte del nombre: ");
         String nombre = scanner.nextLine();
@@ -184,6 +221,10 @@ public class MenuProductos {
         }
     }
 
+    /**
+     * Busca y muestra productos por categoría.
+     * Solicita el ID de la categoría y muestra los productos asociados.
+     */
     private void buscarPorCategoria() {
         System.out.print("Ingrese el ID de la categoría: ");
         long idCat = scanner.nextLong();

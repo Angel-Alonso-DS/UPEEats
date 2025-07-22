@@ -5,10 +5,21 @@ import org.upemor.models.entities.Sugerencias;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Clase SugerenciasViewCMD
+ * Proporciona la interfaz de gestión por consola para las sugerencias en UPEEats.
+ * Permite listar, buscar, agregar, editar y eliminar sugerencias mediante opciones interactivas.
+ */
 public class SugerenciasViewCMD {
+    // Controlador para operaciones sobre sugerencias
     private final SugerenciasController sugerenciasController = new SugerenciasController();
+    // Scanner para leer la entrada del usuario desde la consola
     private final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Muestra el menú principal de gestión de sugerencias y gestiona las opciones seleccionadas.
+     * Permite al usuario realizar acciones CRUD sobre las sugerencias.
+     */
     public void mostrarMenu() {
         int opcion;
         do {
@@ -47,6 +58,10 @@ public class SugerenciasViewCMD {
         } while (opcion != 0);
     }
 
+    /**
+     * Agrega una nueva sugerencia a la plataforma.
+     * Solicita los datos necesarios, valida el usuario y realiza la inserción.
+     */
     private void agregarSugerencia() {
         System.out.print("ID de usuario: ");
         long idUsuario = scanner.nextLong();
@@ -69,6 +84,11 @@ public class SugerenciasViewCMD {
         System.out.println("Sugerencia agregada.");
     }
 
+    /**
+     * Edita una sugerencia existente.
+     * Solicita el ID, muestra los datos actuales y permite modificar los campos.
+     * Valida el usuario antes de actualizar.
+     */
     private void editarSugerencia() {
         System.out.print("ID de la sugerencia a editar: ");
         long id = scanner.nextLong();
@@ -102,6 +122,10 @@ public class SugerenciasViewCMD {
         System.out.println("Sugerencia actualizada.");
     }
 
+    /**
+     * Elimina una sugerencia de la plataforma.
+     * Solicita el ID y realiza la eliminación.
+     */
     private void eliminarSugerencia() {
         System.out.print("ID de la sugerencia a eliminar: ");
         int id = scanner.nextInt();
@@ -110,6 +134,9 @@ public class SugerenciasViewCMD {
         System.out.println("Sugerencia eliminada.");
     }
 
+    /**
+     * Muestra el listado de todas las sugerencias registradas en la plataforma.
+     */
     private void listarTodas() {
         List<Sugerencias> sugerencias = sugerenciasController.obtenerTodos();
         System.out.println("\n--- Lista de Sugerencias ---");
@@ -118,6 +145,10 @@ public class SugerenciasViewCMD {
         }
     }
 
+    /**
+     * Busca y muestra una sugerencia por su ID.
+     * Solicita el ID al usuario y muestra la información si existe.
+     */
     private void buscarPorId() {
         System.out.print("Ingrese el ID de la sugerencia: ");
         long id = scanner.nextLong();

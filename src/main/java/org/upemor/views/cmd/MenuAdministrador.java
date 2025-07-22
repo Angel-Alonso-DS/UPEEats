@@ -8,11 +8,23 @@ import org.upemor.utils.Validadores;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Clase MenuAdministrador
+ * Proporciona la interfaz de administración por consola para gestionar usuarios y empleados en UPEEats.
+ * Permite listar, aprobar, desactivar y eliminar usuarios, así como mostrar empleados pendientes de aprobación.
+ */
 public class MenuAdministrador {
+    // Controlador de sesión para autenticación de empleados
     private final SesionControlador sesionControlador = new SesionControlador();
+    // Controlador de administración para operaciones sobre usuarios y empleados
     private final AdministradorController adminController = new AdministradorController();
+    // Scanner para leer la entrada del usuario desde la consola
     private final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Muestra el menú principal del panel de administrador y gestiona las opciones seleccionadas.
+     * Permite al administrador realizar acciones sobre usuarios y empleados.
+     */
     public void mostrarMenu() {
         int opcion;
         do {
@@ -51,6 +63,12 @@ public class MenuAdministrador {
         } while (opcion != 0);
     }
 
+    /**
+     * Solicita confirmación y credenciales antes de realizar acciones sensibles.
+     * Valida el acceso del empleado mediante correo y contraseña.
+     *
+     * @return true si el acceso es confirmado y válido, false en caso contrario.
+     */
     private boolean confirmarAcceso() {
         System.out.println("Seguro que desea continuar? (S/N): ");
         String confirmacion = scanner.nextLine().trim().toUpperCase();
@@ -73,6 +91,10 @@ public class MenuAdministrador {
         }
     }
 
+    /**
+     * Elimina un usuario de la plataforma.
+     * Solicita el ID del usuario y confirma el acceso antes de proceder.
+     */
     private void eliminarUsuario() {
         System.out.print("Ingrese el ID del usuario a eliminar: ");
         long id = scanner.nextLong();
@@ -88,6 +110,9 @@ public class MenuAdministrador {
         }
     }
 
+    /**
+     * Muestra el listado de todos los usuarios registrados en la plataforma.
+     */
     private void listarUsuarios() {
         List<Usuarios> usuarios = adminController.obtenerTodosUsuarios();
         System.out.println("\n--- Listado de Usuarios ---");
@@ -96,6 +121,9 @@ public class MenuAdministrador {
         }
     }
 
+    /**
+     * Muestra el listado de empleados pendientes de aprobación.
+     */
     private void listarEmpleadosPendientes() {
         List<Usuarios> empleados = adminController.obtenerEmpleadosPendientes();
         System.out.println("\n--- Empleados pendientes de aprobación ---");
@@ -104,6 +132,10 @@ public class MenuAdministrador {
         }
     }
 
+    /**
+     * Aprueba un empleado pendiente en la plataforma.
+     * Solicita el ID del empleado y confirma el acceso antes de proceder.
+     */
     private void aprobarEmpleado() {
         System.out.print("Ingrese el ID del empleado a aprobar: ");
         long id = scanner.nextLong();
@@ -119,6 +151,10 @@ public class MenuAdministrador {
         }
     }
 
+    /**
+     * Desactiva un usuario en la plataforma.
+     * Solicita el ID del usuario y confirma el acceso antes de proceder.
+     */
     private void desactivarUsuario() {
         System.out.print("Ingrese el ID del usuario a desactivar: ");
         long id = scanner.nextLong();

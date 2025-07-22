@@ -5,10 +5,21 @@ import org.upemor.models.entities.Pedidos;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Clase PedidosViewCMD
+ * Proporciona la interfaz de gestión por consola para los pedidos en UPEEats.
+ * Permite listar, buscar y crear pedidos mediante opciones interactivas.
+ */
 public class PedidosViewCMD {
+    // Controlador para operaciones sobre pedidos
     private final PedidosController pedidosController = new PedidosController();
+    // Scanner para leer la entrada del usuario desde la consola
     private final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Muestra el menú principal de gestión de pedidos y gestiona las opciones seleccionadas.
+     * Permite al usuario listar, buscar y crear pedidos.
+     */
     public void mostrarMenu() {
         int opcion;
         do {
@@ -39,6 +50,11 @@ public class PedidosViewCMD {
         } while (opcion != 0);
     }
 
+    /**
+     * Permite crear un nuevo pedido.
+     * Solicita el ID del usuario, los productos y cantidades, y un comentario opcional.
+     * Llama al controlador para registrar el pedido.
+     */
     private void crearPedido() {
         System.out.print("ID del usuario: ");
         long idUsuario = scanner.nextLong();
@@ -63,6 +79,9 @@ public class PedidosViewCMD {
         System.out.println(ok ? "Pedido registrado exitosamente." : "No se pudo registrar el pedido.");
     }
 
+    /**
+     * Muestra el listado de todos los pedidos registrados en la plataforma.
+     */
     private void listarTodos() {
         List<Pedidos> pedidos = pedidosController.obtenerTodos();
         System.out.println("\n--- Lista de Pedidos ---");
@@ -71,6 +90,10 @@ public class PedidosViewCMD {
         }
     }
 
+    /**
+     * Busca y muestra un pedido por su ID.
+     * Solicita el ID al usuario y muestra la información si existe.
+     */
     private void buscarPorId() {
         System.out.print("Ingrese el ID del pedido: ");
         long id = scanner.nextLong();

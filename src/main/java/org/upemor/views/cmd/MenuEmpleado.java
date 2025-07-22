@@ -7,13 +7,28 @@ import org.upemor.controllers.UsuariosController;
 import org.upemor.models.entities.Usuarios;
 import org.upemor.utils.Validadores;
 
+/**
+ * Clase MenuEmpleado
+ * Proporciona la interfaz de menú por consola para empleados en UPEEats.
+ * Permite ver y editar información personal, gestionar productos y categorías, y acceder a opciones administrativas si el rol lo permite.
+ */
 public class MenuEmpleado {
+    // Controlador de sesión para autenticación de empleados
     private final SesionControlador sesionControlador = new SesionControlador();
+    // Controlador para operaciones sobre usuarios
     private final UsuariosController usuariosController = new UsuariosController();
+    // Scanner para leer la entrada del usuario desde la consola
     private final Scanner scanner = new Scanner(System.in);
 
+    // Usuario autenticado en el menú
     private Usuarios usuario;
 
+    /**
+     * Muestra el menú principal para empleados y gestiona las opciones seleccionadas.
+     * Permite al empleado realizar acciones sobre su información y acceder a gestiones según su rol.
+     *
+     * @param usuario Usuario autenticado que accede al menú.
+     */
     public void mostrarMenu(Usuarios usuario) {
         this.usuario = usuario;
         int opcion;
@@ -25,6 +40,7 @@ public class MenuEmpleado {
             System.out.println("4. Gestion de categorías");
             System.out.println("5. Cerrar sesión");
         
+            // Solo los administradores pueden gestionar usuarios
             if (usuario.getRol().equals("adminsitrador")) System.out.println("6. Gestion de usuarios");
             
             System.out.println("0. Salir");
@@ -35,23 +51,29 @@ public class MenuEmpleado {
 
             switch (opcion) {
                 case 1:
+                    // Ver información personal, requiere confirmación de acceso
                     if (confirmarAcceso()) verInformacionPersonal();
                     break;
                 case 2:
+                    // Editar información personal, requiere confirmación de acceso
                     if (confirmarAcceso()) editarInformacionPersonal();
                     break;
                 case 3:
+                    // Acceso al menú de gestión de productos
                     MenuProductos menuProductos = new MenuProductos();
                     menuProductos.mostrarMenu();
                     break;
                 case 4:
+                    // Acceso al menú de gestión de categorías
                     MenuCategorias menuCategorias = new MenuCategorias();
                     menuCategorias.mostrarMenu();
                     break;
                 case 5:
+                    // Cerrar sesión
                     cerrarSesion();
                     break;
                 case 6:
+                    // Acceso al menú de administración solo si el usuario es administrador
                     if (usuario.getRol().equals("adminsitrador")) {
                         MenuAdministrador menuAdministrador = new MenuAdministrador();
                         menuAdministrador.mostrarMenu();
@@ -65,6 +87,12 @@ public class MenuEmpleado {
         } while (opcion != 0);
     }
 
+    /**
+     * Solicita credenciales al usuario para confirmar el acceso antes de realizar acciones sensibles.
+     * Valida el correo y la contraseña ingresados.
+     *
+     * @return true si el acceso es confirmado y válido, false en caso contrario.
+     */
     private boolean confirmarAcceso() {
         System.out.println("Ingrese su correo electrónico: ");
         String correo = scanner.nextLine();
@@ -82,6 +110,10 @@ public class MenuEmpleado {
         return true;
     }
 
+    /**
+     * Permite al usuario editar su información personal.
+     * Solicita los nuevos datos, valida la entrada y actualiza la información en la base de datos.
+     */
     private void editarInformacionPersonal() {
         System.out.println("Editar Información Personal:");
         System.out.print("Nuevo Nombre: ");
@@ -110,6 +142,9 @@ public class MenuEmpleado {
         }
     }
 
+    /**
+     * Muestra la información personal del usuario autenticado.
+     */
     private void verInformacionPersonal() {
         Usuarios u = usuariosController.buscarPorId(usuario.getId());
         System.out.println("\n--- Información Personal ---");
@@ -122,6 +157,9 @@ public class MenuEmpleado {
         System.out.println("Rol: " + u.getRol());
     }
 
+    /**
+     * Cierra la sesión del usuario en el menú.
+     */
     private void cerrarSesion() {
         System.out.println("Cerrando sesión...");
     }

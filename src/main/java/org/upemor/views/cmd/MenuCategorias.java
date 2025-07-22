@@ -7,10 +7,21 @@ import org.upemor.utils.Validadores;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Clase MenuCategorias
+ * Proporciona la interfaz de gestión por consola para las categorías en UPEEats.
+ * Permite listar, buscar, agregar, editar y eliminar categorías mediante opciones interactivas.
+ */
 public class MenuCategorias {
+    // Controlador para operaciones sobre categorías
     private final CategoriasController categoriasController = new CategoriasController();
+    // Scanner para leer la entrada del usuario desde la consola
     private final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Muestra el menú principal de gestión de categorías y gestiona las opciones seleccionadas.
+     * Permite al usuario realizar acciones CRUD sobre las categorías.
+     */
     public void mostrarMenu() {
         int opcion;
         do {
@@ -49,12 +60,20 @@ public class MenuCategorias {
         } while (opcion != 0);
     }
 
+    /**
+     * Solicita confirmación al usuario antes de realizar una acción sensible.
+     * @param mensaje Mensaje de confirmación.
+     * @return true si el usuario confirma, false en caso contrario.
+     */
     private boolean continuarAccion(String mensaje) {
         System.out.print(mensaje + " (s/n): ");
         String respuesta = scanner.nextLine().trim().toLowerCase();
         return respuesta.equals("s") || respuesta.equals("si");
     }
 
+    /**
+     * Muestra el listado de todas las categorías registradas.
+     */
     private void listarTodas() {
         List<Categorias> categorias = categoriasController.obtenerTodas();
         System.out.println("\n--- Lista de Categorías ---");
@@ -63,6 +82,10 @@ public class MenuCategorias {
         }
     }
 
+    /**
+     * Busca y muestra una categoría por su ID.
+     * Solicita el ID al usuario y muestra la información si existe.
+     */
     private void buscarPorId() {
         System.out.print("Ingrese el ID de la categoría: ");
         long id = scanner.nextLong();
@@ -75,6 +98,10 @@ public class MenuCategorias {
         }
     }
 
+    /**
+     * Agrega una nueva categoría a la plataforma.
+     * Solicita nombre y descripción, valida los datos y realiza la inserción.
+     */
     private void agregarCategoria() {
         System.out.print("Nombre: ");
         String nombre = scanner.nextLine();
@@ -90,6 +117,11 @@ public class MenuCategorias {
         }
     }
 
+    /**
+     * Edita una categoría existente.
+     * Solicita el ID, muestra los datos actuales y permite modificar nombre y descripción.
+     * Valida los datos antes de actualizar.
+     */
     private void editarCategoria() {
         System.out.print("ID de la categoría a editar: ");
         long id = scanner.nextLong();
@@ -118,6 +150,10 @@ public class MenuCategorias {
         }
     }
 
+    /**
+     * Elimina una categoría de la plataforma.
+     * Solicita el ID y confirma la acción antes de eliminar.
+     */
     private void eliminarCategoria() {
         System.out.print("ID de la categoría a eliminar: ");
         int id = scanner.nextInt();
