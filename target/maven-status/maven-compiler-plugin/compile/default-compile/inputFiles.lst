@@ -34,11 +34,12 @@ D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\
 D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\utils\BDConexion.java
 D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\utils\Validadores.java
 D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\AccesoViewCMD.java
-D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\AdministradorViewCMD.java
-D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\CategoriasViewCMD.java
-D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\EdicionPerfilViewCMD.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\MenuAdministrador.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\MenuCategorias.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\MenuEmpleado.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\MenuEstudiante.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\MenuProductos.java
 D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\PedidosViewCMD.java
-D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\ProductosViewCMD.java
 D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\RegistroUsuarioViewCMD.java
 D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\SugerenciasViewCMD.java
 D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\estudiantes\Home.java

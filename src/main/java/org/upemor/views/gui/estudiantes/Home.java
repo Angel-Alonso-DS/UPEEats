@@ -12,6 +12,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.upemor.models.entities.Usuarios;
+import org.upemor.views.gui.estudiantes.screens.*;
+import org.upemor.views.gui.estudiantes.screens.Menu;
 import org.upemor.views.gui.main.Main;
 
 /**
@@ -19,16 +21,27 @@ import org.upemor.views.gui.main.Main;
  * @author Admin
  */
 public class Home extends javax.swing.JFrame {
+    
     /**
      * Creates new form Home
      */
     public Home() {
+        inicio = new Inicio();
+        notificaciones = new Notificaciones();
+        cuenta = new Cuenta();
+        menu = new Menu();
+
         initComponents();
     }
 
     public Home(Usuarios usuario) {
+        inicio = new Inicio(usuario);
+        notificaciones = new Notificaciones(usuario);
+        cuenta = new Cuenta(usuario);
+        menu = new Menu(usuario);
+
         initComponents();
-        textoNombre.setText(usuario.getNombre() + " " + usuario.getApellidoPaterno() + " " + usuario.getApellidoMaterno());
+        textoNombre.setText(usuario.getNombre());
     }
 
     /**
@@ -48,10 +61,12 @@ public class Home extends javax.swing.JFrame {
         bttnCuenta = new javax.swing.JButton();
         textoNombre = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        panelConntent = new javax.swing.JPanel();
+        cardLayout = new CardLayout();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1028, 720));
+        setPreferredSize(new java.awt.Dimension(1028, 720));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
@@ -122,7 +137,10 @@ public class Home extends javax.swing.JFrame {
         });
 
         textoNombre.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        textoNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoNombre.setText("[NOMBRE]");
+        textoNombre.setAutoscrolls(true);
+        textoNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Bienvenido");
@@ -132,20 +150,24 @@ public class Home extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bttnInicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bttonMenu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bttnNotificaciones, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-                    .addComponent(bttnSugerencias, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bttnCuenta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bttnInicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bttonMenu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bttnNotificaciones, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                            .addComponent(bttnSugerencias, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bttnCuenta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(textoNombre))
-                .addGap(72, 72, 72))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(textoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,8 +175,8 @@ public class Home extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textoNombre)
-                .addGap(69, 69, 69)
+                .addComponent(textoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(bttnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bttonMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -167,16 +189,24 @@ public class Home extends javax.swing.JFrame {
                 .addGap(58, 58, 58))
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelConntentLayout = new javax.swing.GroupLayout(panelConntent);
+        panelConntent.setLayout(panelConntentLayout);
+        panelConntentLayout.setHorizontalGroup(
+            panelConntentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 782, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelConntentLayout.setVerticalGroup(
+            panelConntentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 720, Short.MAX_VALUE)
         );
+
+        panelConntent.setLayout(cardLayout);
+        panelConntent.add(inicio, "inicio");
+        panelConntent.add(notificaciones, "notificaciones");
+        panelConntent.add(cuenta, "cuenta");
+        panelConntent.add(menu, "menu");
+        
+        cardLayout.show(panelConntent, "inicio");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -185,12 +215,12 @@ public class Home extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelConntent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelConntent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -202,6 +232,7 @@ public class Home extends javax.swing.JFrame {
         bttnNotificaciones.setBackground(new Color(51, 51, 51));
         bttnSugerencias.setBackground(new Color(51, 51, 51));
         bttnCuenta.setBackground(new Color(51, 51, 51));
+        cardLayout.show(panelConntent, "inicio");
     }//GEN-LAST:event_bttnInicioActionPerformed
 
     private void bttonMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttonMenuActionPerformed
@@ -210,6 +241,7 @@ public class Home extends javax.swing.JFrame {
         bttnNotificaciones.setBackground(new Color(51, 51, 51));
         bttnSugerencias.setBackground(new Color(51, 51, 51));
         bttnCuenta.setBackground(new Color(51, 51, 51));
+        cardLayout.show(panelConntent, "menu");
     }//GEN-LAST:event_bttonMenuActionPerformed
 
     private void bttnNotificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnNotificacionesActionPerformed
@@ -218,6 +250,7 @@ public class Home extends javax.swing.JFrame {
         bttonMenu.setBackground(new Color(51, 51, 51));
         bttnSugerencias.setBackground(new Color(51, 51, 51));
         bttnCuenta.setBackground(new Color(51, 51, 51));
+        cardLayout.show(panelConntent, "notificaciones");
     }//GEN-LAST:event_bttnNotificacionesActionPerformed
 
     private void bttnSugerenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnSugerenciasActionPerformed
@@ -226,6 +259,7 @@ public class Home extends javax.swing.JFrame {
         bttonMenu.setBackground(new Color(51, 51, 51));
         bttnNotificaciones.setBackground(new Color(51, 51, 51));
         bttnCuenta.setBackground(new Color(51, 51, 51));
+        // cardLayout.show(panelConntent, "sugerencias");
     }//GEN-LAST:event_bttnSugerenciasActionPerformed
 
     private void bttnCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnCuentaActionPerformed
@@ -234,6 +268,7 @@ public class Home extends javax.swing.JFrame {
         bttonMenu.setBackground(new Color(51, 51, 51));
         bttnNotificaciones.setBackground(new Color(51, 51, 51));
         bttnSugerencias.setBackground(new Color(51, 51, 51));
+        cardLayout.show(panelConntent, "cuenta");
     }//GEN-LAST:event_bttnCuentaActionPerformed
 
     /**
@@ -262,7 +297,12 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton bttonMenu;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private static javax.swing.JLabel textoNombre;
+    private javax.swing.JPanel panelConntent;
+    private javax.swing.JLabel textoNombre;
+    private CardLayout cardLayout;
+    private Inicio inicio;
+    private Menu menu;
+    private Notificaciones notificaciones;
+    private Cuenta cuenta;
     // End of variables declaration//GEN-END:variables
 }

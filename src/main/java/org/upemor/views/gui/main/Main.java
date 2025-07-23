@@ -19,24 +19,9 @@ import com.formdev.flatlaf.themes.FlatMacDarkLaf;
  * @author Admin
  */
 public class Main extends javax.swing.JFrame {
-    private CardLayout cardLayout;
-    private Acceso acceso;
-    private Registro registro;
     
     public Main() {
-        acceso = new Acceso();
-        registro = new Registro();
-        cardLayout = new CardLayout();
-        
         initComponents();
-        setResizable(false);
-        
-        panelContenido.setLayout(cardLayout);
-        panelContenido.add(acceso, "acceso");
-        panelContenido.add(registro, "registro");
-        
-        cardLayout.show(panelContenido, "acceso");
-        
     }
 
     /**
@@ -54,10 +39,14 @@ public class Main extends javax.swing.JFrame {
         botonAcceder = new javax.swing.JButton();
         botonRegistrarse = new javax.swing.JButton();
         panelContenido = new javax.swing.JPanel();
+        acceso = new Acceso();
+        registro = new Registro();
+        cardLayout = new CardLayout();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1028, 720));
         setPreferredSize(new java.awt.Dimension(1028, 720));
+        setResizable(false);
 
         panelLogo.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -121,8 +110,9 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(botonRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(229, Short.MAX_VALUE))
         );
-
+        
         javax.swing.GroupLayout panelContenidoLayout = new javax.swing.GroupLayout(panelContenido);
+        
         panelContenido.setLayout(panelContenidoLayout);
         panelContenidoLayout.setHorizontalGroup(
             panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,6 +122,12 @@ public class Main extends javax.swing.JFrame {
             panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        panelContenido.setLayout(cardLayout);
+        panelContenido.add(acceso, "acceso");
+        panelContenido.add(registro, "registro");
+        
+        cardLayout.show(panelContenido, "acceso");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -188,5 +184,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel panelContenido;
     private javax.swing.JPanel panelLogo;
+    private CardLayout cardLayout;
+    private Acceso acceso;
+    private Registro registro;
     // End of variables declaration//GEN-END:variables
 }
