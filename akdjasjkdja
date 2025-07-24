@@ -1,0 +1,38 @@
+[33m3c41ced[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m #
+[33mcd3c2a8[m #s
+[33mc111fb0[m #
+[33m1d6dfb1[m 2
+[33m51c9c80[m 1
+[33md725d82[m Documentación gui
+[33m4f7fe4a[m #
+[33m04b7988[m Interfaz de empleados
+[33m40175bf[m #
+[33m51685d9[m Menu estudiante
+[33m41c5969[m #
+[33m6568ab3[m Documentar
+[33mb03800c[m docum
+[33mb17b45e[m documentacion
+[33m7491723[m hola
+[33m39fbfbf[m Implementacion de normas de seguridad para realizar alguna accion
+[33mf0efac3[m Cambio en el sistema de seguridad de la app, asi como refactorizacion de los menus
+[33m83a0c1a[m Refactor controlador de sesiones: mejora en la gestión de excepciones y simplificación de validaciones
+[33m7d83d4c[m Cambio en la conexion de la base de datos
+[33m8f4b61b[m Funcionamiento de acceso y registro
+[33m1305b1a[m Continuar con la creacion de formularios
+[33m73bcc13[m eliminar clase Main y su lógica de gestión de sesiones
+[33m5885f1a[m conexion con mariadb
+[33m458e719[m Views actualizados
+[33mdf98fa1[m sis
+[33m72f0773[m sis
+[33mc2f87bd[m vistas
+[33m535d5dc[m views
+[33m0381b4e[m Creacion de ventanas
+[33m6f9d803[m creacion repositorios y controlador usuario
+[33m6aa6a3d[m entidades y repositorios
+[33mc674765[m database sql
+[33mb1068a6[m Configuration and create data base connection
+[33m871b2ff[m A
+[33m4fef58c[m A
+[33mbb90bd6[m entities commit
+[33m56ca59e[m agregar readme
+[33mc99b132[m first commit
