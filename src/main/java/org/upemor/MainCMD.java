@@ -1,3 +1,10 @@
+/*
+ * Clase MainCMD
+ * Punto de entrada para la versión de consola (CMD) del sistema UPEEats.
+ * Permite probar el acceso y registro de estudiantes y empleados desde la terminal.
+ * Presenta un menú interactivo para seleccionar la acción deseada.
+ */
+
 package org.upemor;
 
 import org.upemor.controllers.SesionControlador;
@@ -7,6 +14,10 @@ import org.upemor.views.cmd.*;
 import java.util.Scanner;
 
 public class MainCMD {
+    /**
+     * Método principal que ejecuta el menú de pruebas por consola.
+     * Permite seleccionar entre acceso y registro de estudiantes o empleados.
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         SesionControlador sesionControlador = new SesionControlador();
@@ -48,6 +59,10 @@ public class MainCMD {
         scanner.close();
     }
 
+    /**
+     * Realiza el proceso de acceso para estudiantes.
+     * Solicita matrícula y contraseña, valida los datos y muestra el menú de estudiante si el acceso es exitoso.
+     */
     private static void accesoEstudiante(SesionControlador sesionControlador, Scanner scanner) {
         System.out.print("Matrícula: ");
         String matricula = scanner.nextLine();
@@ -70,6 +85,10 @@ public class MainCMD {
         }
     }
 
+    /**
+     * Realiza el proceso de acceso para empleados.
+     * Solicita correo y contraseña, valida los datos y muestra el menú de empleado si el acceso es exitoso.
+     */
     private static void accesoEmpleado(SesionControlador sesionControlador, Scanner scanner) {
         System.out.print("Correo: ");
         String correo = scanner.nextLine();
