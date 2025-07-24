@@ -7,6 +7,7 @@ package org.upemor.views.gui.main;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import org.upemor.views.gui.admin.acceso.MainAdmin;
 import org.upemor.views.gui.main.pages.Acceso;
 import org.upemor.views.gui.main.pages.Registro;
 
@@ -19,7 +20,8 @@ import com.formdev.flatlaf.themes.FlatMacDarkLaf;
  * @author Admin
  */
 public class Main extends javax.swing.JFrame {
-    
+    private CardLayout cardLayout;
+
     public Main() {
         initComponents();
     }
@@ -38,15 +40,12 @@ public class Main extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         botonAcceder = new javax.swing.JButton();
         botonRegistrarse = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         panelContenido = new javax.swing.JPanel();
-        acceso = new Acceso();
-        registro = new Registro();
         cardLayout = new CardLayout();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1028, 720));
-        setPreferredSize(new java.awt.Dimension(1028, 720));
-        setResizable(false);
 
         panelLogo.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -79,6 +78,14 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(30, 30, 30));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/upemor/assets/icons/user-tie-solid-full.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelLogoLayout = new javax.swing.GroupLayout(panelLogo);
         panelLogo.setLayout(panelLogoLayout);
         panelLogoLayout.setHorizontalGroup(
@@ -94,7 +101,10 @@ public class Main extends javax.swing.JFrame {
                         .addGap(130, 130, 130)
                         .addGroup(panelLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))))
+                            .addComponent(jLabel1)))
+                    .addGroup(panelLogoLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jButton1)))
                 .addContainerGap(117, Short.MAX_VALUE))
         );
         panelLogoLayout.setVerticalGroup(
@@ -108,11 +118,12 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(botonAcceder, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botonRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(229, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(25, 25, 25))
         );
-        
+
         javax.swing.GroupLayout panelContenidoLayout = new javax.swing.GroupLayout(panelContenido);
-        
         panelContenido.setLayout(panelContenidoLayout);
         panelContenidoLayout.setHorizontalGroup(
             panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,9 +135,8 @@ public class Main extends javax.swing.JFrame {
         );
 
         panelContenido.setLayout(cardLayout);
-        panelContenido.add(acceso, "acceso");
-        panelContenido.add(registro, "registro");
-        
+        panelContenido.add(new Acceso(), "acceso");
+        panelContenido.add(new Registro(), "registro");
         cardLayout.show(panelContenido, "acceso");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -159,6 +169,13 @@ public class Main extends javax.swing.JFrame {
         cardLayout.show(panelContenido, "registro");
     }//GEN-LAST:event_botonRegistrarseActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        MainAdmin mainAdmin = new MainAdmin();
+        this.dispose();
+        mainAdmin.setVisible(true);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -180,12 +197,10 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAcceder;
     private javax.swing.JButton botonRegistrarse;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel panelContenido;
     private javax.swing.JPanel panelLogo;
-    private CardLayout cardLayout;
-    private Acceso acceso;
-    private Registro registro;
     // End of variables declaration//GEN-END:variables
 }

@@ -31,7 +31,7 @@ public class SesionControlador {
         Timestamp fechaRegistro = new Timestamp(System.currentTimeMillis());
 
         try {
-            Usuarios nuevoUsuario = new Usuarios(0, nombre, apellidoPaterno, apellidoMaterno, correo, contrasenia, telefono, true, "Estudiante", matricula, fechaRegistro);
+            Usuarios nuevoUsuario = new Usuarios(0, nombre, apellidoPaterno, apellidoMaterno, correo, contrasenia, telefono, true, "estudiante", matricula, fechaRegistro);
 
             usuarioRepository.insertar(nuevoUsuario);
             System.out.println("Registro exitoso");

@@ -42,6 +42,14 @@ D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\
 D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\PedidosViewCMD.java
 D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\RegistroUsuarioViewCMD.java
 D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\cmd\SugerenciasViewCMD.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\admin\acceso\MainAdmin.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\admin\acceso\screens\AccesoAdmin.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\admin\acceso\screens\RegistroAdmin.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\admin\dashboard\HomeAdmin.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\admin\dashboard\screens\ControlEmpleados.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\admin\dashboard\screens\GestionCategorias.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\admin\dashboard\screens\GestionProductos.java
+D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\admin\dashboard\screens\InicioAdmin.java
 D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\estudiantes\Home.java
 D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\estudiantes\screens\Cuenta.java
 D:\DOCUMENTOS\Documents\escuela\Uni\PI\UPEEats\upeeats\src\main\java\org\upemor\views\gui\estudiantes\screens\Inicio.java
