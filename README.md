@@ -1,69 +1,88 @@
-# UPEEats (Sistema de Gestión de Pedidos para la Cafetería Universitaria)
+# UPEEats
 
-Proyecto académico desarrollado como parte del **Proyecto Integrador I** de la carrera de **Ingeniería en Tecnologías de la Información e Innovación Digital** en la **Universidad Politécnica del Estado de Morelos**.
+UPEEats es una aplicación de gestión de pedidos y sugerencias para cafeterías universitarias, desarrollada en Java con Swing y una arquitectura modular basada en el patrón MVC (Modelo-Vista-Controlador). El sistema permite a los usuarios realizar pedidos, gestionar productos, categorías, sugerencias y reseñas, así como administrar notificaciones y usuarios.
 
-## 🧠 Descripción del Proyecto
+## Características principales
 
-Este es una aplicación de escritorio en Java (con Maven) que permite a los estudiantes de una universidad realizar pedidos de comida de forma anticipada, con el fin de reducir los tiempos de espera y mejorar la experiencia alimentaria dentro del campus.
+- **Gestión de Pedidos:** Permite crear, consultar, actualizar y eliminar pedidos, así como ver el detalle de cada uno y su estado.
+- **Gestión de Productos y Categorías:** Los productos pueden ser organizados en categorías, con soporte para imágenes, precios, cantidades y descripciones.
+- **Sugerencias y Reseñas:** Los usuarios pueden enviar sugerencias y dejar reseñas sobre los pedidos y productos, facilitando la retroalimentación.
+- **Notificaciones:** El sistema notifica a los usuarios sobre cambios importantes, como actualizaciones de pedidos o respuestas a sugerencias.
+- **Gestión de Usuarios:** Soporte para diferentes roles de usuario (administrador, cliente, etc.), con autenticación y control de acceso.
+- **Interfaz Gráfica Moderna:** Utiliza Swing y un sistema de temas y dimensiones personalizadas para una experiencia visual atractiva y adaptable.
+- **Persistencia en Base de Datos:** Utiliza SQLite (y soporte para MariaDB) para almacenar toda la información de la aplicación.
 
-La aplicación está conectada a una base de datos remota y permite personalizar los menús de acuerdo con preferencias alimenticias, además de calificar los platillos disponibles.
+## Estructura del proyecto
 
-## 🛠️ Tecnologías Utilizadas
+```
+nbactions.xml
+pom.xml
+src/
+  main/
+    java/
+      org/upemor/
+        config/         # Configuración de la base de datos y utilidades
+        controllers/    # Controladores para la lógica de negocio y la UI
+        models/         # Modelos de datos (entidades)
+        repositories/   # Repositorios para acceso a datos (CRUD)
+        theme/          # Temas, colores y dimensiones de la UI
+        utils/          # Utilidades generales y notificaciones
+        views/          # Vistas y paneles principales de la UI
+        widgets/        # Componentes visuales reutilizables
+    resources/
+      icons/           # Iconos usados en la interfaz
+      logos/           # Logos institucionales
+  test/
+    java/              # Pruebas unitarias
+```
 
-- Java
-- Maven
-- MySQL (Base de datos remota)
-- JDBC (Conexión a la BD)
+## Instalación y ejecución
 
-## 🎯 Objetivos
+> [!NOTE]
+> Este proyecto esta en su mayoria codificado por el editor de vscode. Duranet el desarrollo se encontro con un problema al momento de utilizar netbeans. Netbeans renderiza al momento los compenentes del editor de diseño integrado. Por esto mismo muchos de los archivos que estan relacionados a las vistas y estan usando la conexion de la base de datos son afectados y son tomandos como corruptos si No se establece una conexion con MariaDB (Solo establecer). Causa no encontrada pero si importante en tener encuenta.
 
-### Objetivo General
+1. **Requisitos previos:**
 
-Desarrollar una aplicación de escritorio conectada a una base de datos remota para gestionar los pedidos de alimentos, permitiendo personalización de menús saludables y retroalimentación de los usuarios.
+   - Java 8 o superior
+   - Maven (para compilar y gestionar dependencias)
+   - (Opcional) MariaDB si se desea usar en vez de SQLite
 
-### Objetivos Específicos
+2. **Compilación:**
+   Ejecuta en la raíz del proyecto:
 
-- Diseñar una interfaz amigable para la selección y solicitud de alimentos.
-- Implementar una base de datos normalizada que gestione pedidos, menús y preferencias alimenticias.
-- Incluir un sistema de calificación de platillos.
-- Gestionar preferencias alimenticias (dietas, alergias).
-- Simular notificaciones de pedido listo para recoger.
+   ```sh
+   mvn clean install
+   ```
 
-## ⚠️ Problemática
+3. **Ejecución:**
+   Puedes ejecutar la aplicación desde el IDE o con:
 
-Los estudiantes enfrentan largos tiempos de espera en la cafetería, lo que afecta su alimentación y, en consecuencia, su rendimiento académico y bienestar físico. Este sistema busca mitigar esos problemas mediante un enfoque tecnológico simple y accesible.
+   ```sh
+   mvn exec:java -Dexec.mainClass="org.upemor.Main"
+   ```
 
-## 💡 Justificación
+   (Asegúrate de que la clase Main exista y sea el punto de entrada)
 
-- Mejora del servicio de cafetería y satisfacción estudiantil.
-- Apoyo a políticas de alimentación saludable.
-- Fortalecimiento del vínculo estudiante-institución mediante tecnología.
-- Proyecto factible a nivel académico y técnico para estudiantes de tercer cuatrimestre.
+4. **Base de datos:**
+   - Por defecto, se utiliza un archivo SQLite ubicado en `db/cafeteria.db`.
+   - Los scripts de creación y migración están en `db/sql/`.
 
-## 📦 Alcances
+## Principales paquetes y clases
 
-- Aplicación de escritorio funcional.
-- Calificación y comentarios sobre alimentos.
-- Personalización alimentaria básica.
-- Simulación de notificaciones.
-- Conexión con base de datos remota.
+- `models/` — Entidades como `Usuarios`, `Productos`, `Pedidos`, `DetallePedido`, `Sugerencias`, `ReseniaProducto`, etc.
+- `repositories/` — Clases como `UsuariosRepositorio`, `ProductosRepositorio`, `PedidosRepositorio`, etc., que implementan la lógica de acceso a datos.
+- `controllers/` — Controladores para manejar la lógica de la aplicación y la interacción con la UI.
+- `widgets/` — Componentes visuales reutilizables como `ItemEntidad`, `PanelListaEntidades`, etc.
+- `theme/` — Definición de colores, dimensiones y estilos visuales.
+- `utils/` — Utilidades como notificaciones globales, validaciones, etc.
 
-## 🚫 Limitaciones
+## Licencia
 
-- No se conectará a sistemas de punto de venta reales.
-- El sistema de notificaciones es simulado.
-- No incluye sistema de pagos.
-- No se desarrolla para móviles ni plataformas web.
-- Desarrollo limitado al periodo académico.
+Este proyecto es de uso académico y está bajo la Licencia MIT.
 
-## 📚 Referencias
+## Créditos
 
-- Arias S. C. M. et al. (2023). _Factores relacionados con la omisión del desayuno en estudiantes universitarios de Cali, Colombia_. [Perspectivas en Nutrición Humana, 25(2), 161-173](https://doi.org/10.17533/udea.penh.v25n2a05)
+Desarrollado por estudiantes de la Universidad Politécnica del Estado de Morelos (UPEMOR).
 
-## 👥 Autores
-
-- Manuel-Alonso-AG
-- TecnaCoder177
-- ArianaOrive
-
----
+- ALONSO GOMEZ ANGEL MANUEL
+- ORIVE CARDIEL ARIANA PAOLA

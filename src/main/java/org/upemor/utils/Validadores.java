@@ -1,6 +1,9 @@
 package org.upemor.utils;
 
 import java.sql.Timestamp;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 
 /**
  * Clase utilitaria para validaciones de datos de entrada en el sistema UPEEats.
@@ -8,14 +11,33 @@ import java.sql.Timestamp;
  */
 public class Validadores {
     /**
+     * Valida que el arreglo de bytes corresponda a una imagen válida.
+     * @param imagen Arreglo de bytes de la imagen
+     * @return true si es una imagen válida, de lo contrario lanza una excepción
+     */
+    public static boolean validarImagenBytes(byte[] imagen) {
+        if (imagen == null || imagen.length == 0) throw new IllegalArgumentException("No se seleccionó ninguna imagen");
+        try {
+            BufferedImage img = ImageIO.read(new ByteArrayInputStream(imagen));
+            if (img == null) throw new IllegalArgumentException("El archivo no es una imagen válida");
+        } catch (Exception e) {
+            throw new IllegalArgumentException("El archivo no es una imagen válida");
+        }
+        return true;
+    }
+    
+    /**
      * Valida que el nombre no sea nulo, vacío y tenga entre 3 y 50 caracteres.
      * @param nombre Nombre a validar
      * @return true si es válido, de caso contrario lanza una excepción
      */
     public static boolean validarNombre(String nombre) {
         if (nombre == null || nombre.isEmpty()) throw new IllegalArgumentException("No dejes campos vacios");
+        
         if (nombre.length() < 3) throw new IllegalArgumentException("El nombre es muy corto");
+        
         if (nombre.length() > 50) throw new IllegalArgumentException("El nombre es demasiado largo");
+        
         return true;
     }
 
@@ -26,8 +48,11 @@ public class Validadores {
      */
     public static boolean validarApellido(String apellido) {
         if (apellido == null || apellido.isEmpty()) throw new IllegalArgumentException("No dejes campos vacios");
+        
         if (apellido.length() < 3) throw new IllegalArgumentException("El apellido es muy corto");
+        
         if (apellido.length() > 50) throw new IllegalArgumentException("El apellido es demasiado largo");
+        
         return true;
     }
     
@@ -38,7 +63,9 @@ public class Validadores {
      */
     public static boolean validarMatricula(String matricula) {
         if (matricula == null || matricula.isEmpty()) throw new IllegalArgumentException("No dejes campos vacios");
+        
         if (matricula.length() != 10) throw new IllegalArgumentException("La matrícula debe tener 10 caracteres");
+        
         return true;
     }
 
@@ -50,7 +77,9 @@ public class Validadores {
      */
     public static boolean validarTelefono(String telefono) {
         if (telefono == null || telefono.isEmpty()) throw new IllegalArgumentException("No dejes campos vacios");
+        
         if (telefono.length() < 10 ) throw new IllegalArgumentException("El teléfono debe tener al menos 10 caracteres");
+        
         return true;
     }
 
@@ -62,7 +91,9 @@ public class Validadores {
      */
     public static boolean validarImagenURL(String imagenURL) {
         if (imagenURL == null || imagenURL.isEmpty()) throw new IllegalArgumentException("No dejes campos vacios");
+        
         if (imagenURL.length() < 10) throw new IllegalArgumentException("La URL de la imagen es inválida");
+        
         return true;
     }
     
@@ -88,6 +119,16 @@ public class Validadores {
     public static boolean validarContrasenia(String contrasenia) {
         if (contrasenia == null || contrasenia.isEmpty()) throw new IllegalArgumentException("No dejes campos vacios");
         if (contrasenia.length() < 8) throw new IllegalArgumentException("La contraseña debe tener al menos 8 caracteres");
+        
+        return true;
+    }
+
+    public static boolean confirmarContrasenia(String contrasenia, String confirmacion) {
+        validarContrasenia(contrasenia);
+
+        if (confirmacion == null || confirmacion.isEmpty()) throw new IllegalArgumentException("No dejes campos vacios");
+        if (!confirmacion.equals(contrasenia)) throw new IllegalArgumentException("La confirmacion de contraseña es distinta a la contraseña");
+        
         return true;
     }
     
@@ -98,10 +139,12 @@ public class Validadores {
      */
     public static boolean validarRol(String rol) {
         if (rol == null || rol.isEmpty()) throw new IllegalArgumentException("No dejes campos vacios");
-        if (!rol.equalsIgnoreCase("Estudiante") && 
-            !rol.equalsIgnoreCase("Empleado") && 
-            !rol.equalsIgnoreCase("Administrador")
+        
+        if (!rol.equalsIgnoreCase("estudiante") && 
+            !rol.equalsIgnoreCase("empleado") && 
+            !rol.equalsIgnoreCase("administrador")
         ) throw new IllegalArgumentException("Rol no válido");
+        
         return true;
     }
     
@@ -143,8 +186,11 @@ public class Validadores {
      */
     public static boolean validarTiempo(String tiempo) {
         if (tiempo == null) throw new IllegalArgumentException("No dejes campos vacios");
+        
         String regex = "(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d$";
-        if (!tiempo.matches(regex)) throw new IllegalArgumentException("El tiempo no puede ser negativo");
+        
+        if (!tiempo.matches(regex)) throw new IllegalArgumentException("El tiempo ingresado no es valido");
+        
         return true;
     }
 

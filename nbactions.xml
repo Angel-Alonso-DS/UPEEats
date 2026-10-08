@@ -13,7 +13,7 @@
                 <exec.vmArgs></exec.vmArgs>
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.appArgs></exec.appArgs>
-                <exec.mainClass>org.upemor.views.gui.main.Main</exec.mainClass>
+                <exec.mainClass>org.upemor.views.Main</exec.mainClass>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
